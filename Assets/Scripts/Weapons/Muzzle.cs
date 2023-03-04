@@ -32,7 +32,8 @@ public class Muzzle : MonoBehaviour
             if (spawnTimer >= rate && stamina > 0)
             {
                 stamina--;
-                Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+                GameObject proiettile_spawnato = Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+                proiettile_spawnato.transform.SetParent(transform);
                 spawnTimer = 0;
             }
         }
