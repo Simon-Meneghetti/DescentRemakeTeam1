@@ -10,7 +10,6 @@ public class BulletType : MonoBehaviour
     void Update()
     {
         gameObject.transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        gameObject.transform.rotation = transform.parent.rotation;
     }
     private void OnCollisionEnter(Collision collision)
     {

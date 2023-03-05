@@ -33,10 +33,11 @@ public class Muzzle : MonoBehaviour
             {
                 stamina--;
                 GameObject proiettile_spawnato = Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
-                proiettile_spawnato.transform.SetParent(transform);
+                proiettile_spawnato.transform.rotation = gameObject.transform.rotation;
                 spawnTimer = 0;
             }
         }
+        
 
         if (stamina <= 0)
         {
