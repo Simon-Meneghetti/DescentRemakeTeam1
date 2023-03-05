@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player_Movement : MonoBehaviour
 {
@@ -58,7 +59,10 @@ public class Player_Movement : MonoBehaviour
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, velocita_massima);
 
         //Rotazione telecamera X & Y
-        transform.localRotation = Quaternion.Euler(facing_direction * camera_sensitivity * Time.deltaTime);
+        transform.localEulerAngles = new Vector3(facing_direction.x * camera_sensitivity,
+                facing_direction.y * camera_sensitivity, transform.localEulerAngles.z) * Time.deltaTime;
+
+
 
         //Se sta tenendo premuto un tasto per la rotazione continuiamo ad aggiornare la rotazione
         if (want_rotate)
@@ -66,7 +70,38 @@ public class Player_Movement : MonoBehaviour
             //Rotazione telecamera Z
             facing_direction.z += rotate_direction * velocita_rotazione;
         }
-        
+        else
+        {
+            //facing_direction.z = transform.localEulerAngles.z;
+
+            //float z_target = 0;
+            
+            //0
+            if (transform.localEulerAngles.z <= 45 || transform.localEulerAngles.z >= 315)
+            {
+                Debug.Log("edaea");
+                facing_direction.z = 0;
+            }
+            //90
+            else if (transform.localEulerAngles.z > 45 && transform.localEulerAngles.z <= 135)
+            {
+                Debug.Log("dadacwacawadaw");
+                facing_direction.z = 90;
+            }
+            //-90
+            else if (transform.localEulerAngles.z > 225 && transform.localEulerAngles.z < 315)
+            {
+                facing_direction.z = -90;
+            }
+            //180
+            else if (transform.localEulerAngles.z > 135 && transform.localEulerAngles.z <= 225)
+            {
+                facing_direction.z = 180;
+            }
+
+            //transform.localEulerAngles = new Vector3(facing_direction.x * camera_sensitivity, facing_direction.y * camera_sensitivity, Mathf.Lerp(transform.localEulerAngles.z, z_target, velocita_rotazione * Time.deltaTime));
+        }
+
     }
 
     public void Raccolta_Input_Movimento(InputAction.CallbackContext ctx)
@@ -76,7 +111,27 @@ public class Player_Movement : MonoBehaviour
 
     public void Raccolta_Input_Girarsi(InputAction.CallbackContext ctx)
     {
-        facing_direction += new Vector3(-ctx.ReadValue<Vector2>().y, ctx.ReadValue<Vector2>().x, 0);
+        //0
+        if (transform.localEulerAngles.z <= 45 || transform.localEulerAngles.z >= 315)
+        {
+            facing_direction += new Vector3(-ctx.ReadValue<Vector2>().y, ctx.ReadValue<Vector2>().x, 0);
+        }
+        //90
+        else if (transform.localEulerAngles.z > 45 && transform.localEulerAngles.z <= 135)
+        {
+            facing_direction += new Vector3(-ctx.ReadValue<Vector2>().x, -ctx.ReadValue<Vector2>().y, 0);
+        }
+        //-90
+        else if (transform.localEulerAngles.z > 225 && transform.localEulerAngles.z < 315)
+        {
+            facing_direction += new Vector3(ctx.ReadValue<Vector2>().x, ctx.ReadValue<Vector2>().y, 0);
+        }
+        //180
+        else if (transform.localEulerAngles.z > 135 && transform.localEulerAngles.z <= 225)
+        {
+            Debug.LogWarning("sss");
+            facing_direction += new Vector3(ctx.ReadValue<Vector2>().y, -ctx.ReadValue<Vector2>().x, 0);
+        }
     }
 
     public void Raccolta_Input_Ruotarsi(InputAction.CallbackContext ctx)
