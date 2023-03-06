@@ -12,8 +12,10 @@ public class Player_Movement : MonoBehaviour
     //Componenti giocatore
     private Rigidbody rb;
     private Vector3 mov_direction;
-    private Vector3 facing_direction;
+    private Vector2 facing_direction;
+    //Se 1 ruota a destra se -1 a sinistra
     private float rotate_direction;
+    private Vector3 rotate_target;
     private bool want_rotate;
 
     [Header("Speed Settings")]
@@ -59,33 +61,30 @@ public class Player_Movement : MonoBehaviour
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, velocita_massima);
 
         //Rotazione telecamera X & Y
-        transform.localEulerAngles = new Vector3(facing_direction.x * camera_sensitivity,
-                facing_direction.y * camera_sensitivity, transform.localEulerAngles.z) * Time.deltaTime;
+        //transform.localEulerAngles = new Vector2(facing_direction.x * camera_sensitivity, facing_direction.y * camera_sensitivity) * Time.deltaTime;
 
-
+        //transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, new Vector3(facing_direction.x * camera_sensitivity, facing_direction.y * camera_sensitivity, rotate_target.z * velocita_rotazione), Time.deltaTime);
 
         //Se sta tenendo premuto un tasto per la rotazione continuiamo ad aggiornare la rotazione
         if (want_rotate)
         {
-            //Rotazione telecamera Z
-            facing_direction.z += rotate_direction * velocita_rotazione;
+
         }
         else
         {
             //facing_direction.z = transform.localEulerAngles.z;
 
             //float z_target = 0;
-            
-            //0
+
+            /*//0
             if (transform.localEulerAngles.z <= 45 || transform.localEulerAngles.z >= 315)
             {
-                Debug.Log("edaea");
+
                 facing_direction.z = 0;
             }
             //90
             else if (transform.localEulerAngles.z > 45 && transform.localEulerAngles.z <= 135)
             {
-                Debug.Log("dadacwacawadaw");
                 facing_direction.z = 90;
             }
             //-90
@@ -98,8 +97,7 @@ public class Player_Movement : MonoBehaviour
             {
                 facing_direction.z = 180;
             }
-
-            //transform.localEulerAngles = new Vector3(facing_direction.x * camera_sensitivity, facing_direction.y * camera_sensitivity, Mathf.Lerp(transform.localEulerAngles.z, z_target, velocita_rotazione * Time.deltaTime));
+            */
         }
 
     }
@@ -114,24 +112,24 @@ public class Player_Movement : MonoBehaviour
         //0
         if (transform.localEulerAngles.z <= 45 || transform.localEulerAngles.z >= 315)
         {
-            facing_direction += new Vector3(-ctx.ReadValue<Vector2>().y, ctx.ReadValue<Vector2>().x, 0);
+            facing_direction += new Vector2(-ctx.ReadValue<Vector2>().y, ctx.ReadValue<Vector2>().x);
         }
         //90
         else if (transform.localEulerAngles.z > 45 && transform.localEulerAngles.z <= 135)
         {
-            facing_direction += new Vector3(-ctx.ReadValue<Vector2>().x, -ctx.ReadValue<Vector2>().y, 0);
+            facing_direction += new Vector2(-ctx.ReadValue<Vector2>().x, -ctx.ReadValue<Vector2>().y);
         }
         //-90
         else if (transform.localEulerAngles.z > 225 && transform.localEulerAngles.z < 315)
         {
-            facing_direction += new Vector3(ctx.ReadValue<Vector2>().x, ctx.ReadValue<Vector2>().y, 0);
+            facing_direction += new Vector2(ctx.ReadValue<Vector2>().x, ctx.ReadValue<Vector2>().y);
         }
         //180
         else if (transform.localEulerAngles.z > 135 && transform.localEulerAngles.z <= 225)
         {
-            Debug.LogWarning("sss");
-            facing_direction += new Vector3(ctx.ReadValue<Vector2>().y, -ctx.ReadValue<Vector2>().x, 0);
+            facing_direction += new Vector2(ctx.ReadValue<Vector2>().y, -ctx.ReadValue<Vector2>().x);
         }
+        
     }
 
     public void Raccolta_Input_Ruotarsi(InputAction.CallbackContext ctx)
