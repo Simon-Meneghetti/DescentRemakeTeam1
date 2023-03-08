@@ -31,4 +31,12 @@ public class OggettoRaccoglibile : MonoBehaviour
             preso = true;
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+            preso = false;
+        }
+    }
 }
