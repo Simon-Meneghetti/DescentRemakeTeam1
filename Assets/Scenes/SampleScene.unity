@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 303255522}
   - component: {fileID: 303255526}
   - component: {fileID: 303255525}
+  - component: {fileID: 303255527}
   m_Layer: 6
   m_Name: Giocatore
   m_TagString: Player
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303255521}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4915bcea36fcffe4fb50588db780d8b1, type: 3}
   m_Name: 
@@ -208,7 +209,7 @@ MonoBehaviour:
   velocita_movimento: 5
   velocita_decelerazione: 2
   velocita_massima: 5
-  durata_rotazione: 1
+  durata_rotazione: 0
   camera_sensitivity: 20
 --- !u!114 &303255526
 MonoBehaviour:
@@ -237,8 +238,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 303255525}
-        m_TargetAssemblyTypeName: Player_Movement, Assembly-CSharp
+      - m_Target: {fileID: 303255527}
+        m_TargetAssemblyTypeName: Player_Movement1, Assembly-CSharp
         m_MethodName: Raccolta_Input_Movimento
         m_Mode: 0
         m_Arguments:
@@ -253,8 +254,8 @@ MonoBehaviour:
     m_ActionName: Giocatore/Movimento[/Keyboard/w,/Keyboard/s,/Keyboard/d,/Keyboard/a,/Keyboard/shift,/Keyboard/ctrl]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 303255525}
-        m_TargetAssemblyTypeName: Player_Movement, Assembly-CSharp
+      - m_Target: {fileID: 303255527}
+        m_TargetAssemblyTypeName: Player_Movement1, Assembly-CSharp
         m_MethodName: Raccolta_Input_Girarsi
         m_Mode: 0
         m_Arguments:
@@ -269,8 +270,8 @@ MonoBehaviour:
     m_ActionName: Giocatore/Girarsi
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 303255525}
-        m_TargetAssemblyTypeName: Player_Movement, Assembly-CSharp
+      - m_Target: {fileID: 303255527}
+        m_TargetAssemblyTypeName: Player_Movement1, Assembly-CSharp
         m_MethodName: Raccolta_Input_Ruotarsi
         m_Mode: 0
         m_Arguments:
@@ -288,6 +289,23 @@ MonoBehaviour:
   m_DefaultActionMap: Giocatore
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &303255527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303255521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66775fd485d6244e83b1491af49f796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocita_movimento: 5
+  velocita_decelerazione: 2
+  velocita_massima: 5
+  velocita_rotazione: 80.7
+  camera_sensitivity: 51.2
 --- !u!1 &331850051
 GameObject:
   m_ObjectHideFlags: 0
