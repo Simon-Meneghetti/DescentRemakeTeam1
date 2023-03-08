@@ -15,15 +15,15 @@ public class Player_Movement : MonoBehaviour
     private Vector2 facing_direction;
     //Se 1 ruota a destra se -1 a sinistra
     private float rotate_direction;
-    private Vector3 rotate_target;
-    private bool want_rotate;
+    private Quaternion rotate_target;
+    private bool rotating = false;
 
     [Header("Speed Settings")]
     [SerializeField, Range(0, 20)] private float velocita_movimento;
     [SerializeField, Range(0, 20)] private float velocita_decelerazione;
     [SerializeField, Range(0, 20)] private float velocita_massima;
 
-    [SerializeField, Range(0, 20)] private float velocita_rotazione;
+    [SerializeField, Range(0, 20)] private float durata_rotazione;
     [SerializeField, Range(0, 20)] private float camera_sensitivity;
 
     // Start is called before the first frame update
@@ -60,46 +60,15 @@ public class Player_Movement : MonoBehaviour
         //Massima velocità
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, velocita_massima);
 
-        //Rotazione telecamera X & Y
-        //transform.localEulerAngles = new Vector2(facing_direction.x * camera_sensitivity, facing_direction.y * camera_sensitivity) * Time.deltaTime;
+        if(!rotating)
+            //Rotazione telecamera X & Y
+            transform.localEulerAngles = new Vector3(facing_direction.x * Time.deltaTime * camera_sensitivity, facing_direction.y * Time.deltaTime * camera_sensitivity, transform.localEulerAngles.z) ;
 
         //transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, new Vector3(facing_direction.x * camera_sensitivity, facing_direction.y * camera_sensitivity, rotate_target.z * velocita_rotazione), Time.deltaTime);
 
         //Se sta tenendo premuto un tasto per la rotazione continuiamo ad aggiornare la rotazione
-        if (want_rotate)
-        {
 
-        }
-        else
-        {
-            //facing_direction.z = transform.localEulerAngles.z;
-
-            //float z_target = 0;
-
-            /*//0
-            if (transform.localEulerAngles.z <= 45 || transform.localEulerAngles.z >= 315)
-            {
-
-                facing_direction.z = 0;
-            }
-            //90
-            else if (transform.localEulerAngles.z > 45 && transform.localEulerAngles.z <= 135)
-            {
-                facing_direction.z = 90;
-            }
-            //-90
-            else if (transform.localEulerAngles.z > 225 && transform.localEulerAngles.z < 315)
-            {
-                facing_direction.z = -90;
-            }
-            //180
-            else if (transform.localEulerAngles.z > 135 && transform.localEulerAngles.z <= 225)
-            {
-                facing_direction.z = 180;
-            }
-            */
-        }
-
+        //transform.localRotation = Quaternion.Lerp(transform.localRotation, rotate_target, velocita_rotazione * Time.deltaTime);
     }
 
     public void Raccolta_Input_Movimento(InputAction.CallbackContext ctx)
@@ -137,17 +106,34 @@ public class Player_Movement : MonoBehaviour
         rotate_direction = ctx.ReadValue<float>();
 
         //Se sta premendo il tasto...
-        if (ctx.performed)
+        //Debug.Log(rotate_target);
+        //Debug.Log(rotating);
+        if (rotate_direction != 0 && !rotating)
         {
-            //...vuole sparare
-            want_rotate = true;
+            rotate_target = Quaternion.AngleAxis(transform.localEulerAngles.z + (rotate_direction * 90), Vector3.forward);
+
+            rotating = true;
+
+            StartCoroutine(Rotating());
         }
-        //Se ha rilasciato il tasto...
-        else if (ctx.canceled)
+    }
+
+    //Coroutine chiamata quando viene deciso in che direzione muoversi sull'asse delle Z
+    IEnumerator Rotating()
+    {
+        Debug.Log(durata_rotazione);
+        for (float t = 0.0f; t < durata_rotazione; t += Time.deltaTime)
         {
-            //...non vuole più sparare
-            want_rotate = false;
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, rotate_target, t / durata_rotazione);
+
+            yield return new WaitForEndOfFrame();
+
+            //Debug.Log("passa");
         }
 
+        transform.localRotation = rotate_target;
+        //Debug.Log("can move");
+
+        rotating = false;
     }
 }
