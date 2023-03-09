@@ -15,17 +15,18 @@ public class Player_Movement : MonoBehaviour
     private Quaternion facing_directionX;
     private Quaternion facing_directionY;
     private Quaternion facing_directionZ;
+    private Quaternion target_z;
     //Se 1 ruota a destra se -1 a sinistra
     private float rotate_direction;
     private bool want_rotate = false;
 
     [Header("Speed Settings")]
-    [SerializeField, Range(0, 100)] private float velocita_movimento;
-    [SerializeField, Range(0, 100)] private float velocita_decelerazione;
-    [SerializeField, Range(0, 100)] private float velocita_massima;
+    [SerializeField, Range(0, 500)] private float velocita_movimento;
+    [SerializeField, Range(0, 500)] private float velocita_decelerazione;
+    [SerializeField, Range(0, 500)] private float velocita_massima;
 
-    [SerializeField, Range(0, 100)] private float velocita_rotazione;
-    [SerializeField, Range(0, 100)] private float camera_sensitivity;
+    [SerializeField, Range(0, 500)] private float velocita_rotazione;
+    [SerializeField, Range(0, 500)] private float camera_sensitivity;
 
     // Start is called before the first frame update
     void Start()
@@ -64,12 +65,16 @@ public class Player_Movement : MonoBehaviour
 
         if (want_rotate)
         {
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, transform.localRotation * facing_directionZ, velocita_rotazione * Time.deltaTime);
+            target_z = Quaternion.RotateTowards(transform.localRotation, transform.localRotation * facing_directionZ, velocita_rotazione * Time.deltaTime);
+            
+            transform.localRotation = target_z;
         }
 
-        Quaternion rotation_target = facing_directionX * facing_directionY;
+        Quaternion rotation_target = facing_directionX * facing_directionY * Quaternion.AngleAxis(0, Vector3.forward);
 
         transform.localRotation = Quaternion.RotateTowards(transform.localRotation, transform.localRotation * rotation_target, camera_sensitivity * Time.deltaTime);
+
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, target_z.eulerAngles.z);
     }
 
     public void Raccolta_Input_Movimento(InputAction.CallbackContext ctx)
@@ -91,7 +96,7 @@ public class Player_Movement : MonoBehaviour
         //Se sta premendo il tasto...
         if (ctx.performed)
         {
-            facing_directionZ = Quaternion.AngleAxis(ctx.ReadValue<float>(), Vector3.forward);
+            facing_directionZ = Quaternion.AngleAxis(ctx.ReadValue<float>() * velocita_rotazione, Vector3.forward);
             want_rotate = true;
         }
         //Se non lo sta piu' premendo...
