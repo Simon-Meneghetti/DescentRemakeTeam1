@@ -14,8 +14,7 @@ public class Player_Movement : MonoBehaviour
     private Vector3 mov_direction;
     private Quaternion facing_directionX;
     private Quaternion facing_directionY;
-    private Quaternion facing_directionZ;
-    private Quaternion target_z;
+
     //Se 1 ruota a destra se -1 a sinistra
     private float rotate_direction;
     private bool want_rotate = false;
@@ -37,7 +36,7 @@ public class Player_Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         Movimento_Giocatore();
     }
@@ -62,19 +61,20 @@ public class Player_Movement : MonoBehaviour
         //Massima velocità
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, velocita_massima);
 
-
+        //Ruotare sull'asse Z
         if (want_rotate)
         {
-            target_z = Quaternion.RotateTowards(transform.localRotation, transform.localRotation * facing_directionZ, velocita_rotazione * Time.deltaTime);
-            
-            transform.localRotation = target_z;
+            rb.AddRelativeTorque(transform.forward * rotate_direction * velocita_rotazione * Time.deltaTime);
+        }
+        else
+        {
+            rotate_direction = 0;
         }
 
-        Quaternion rotation_target = facing_directionX * facing_directionY * Quaternion.AngleAxis(0, Vector3.forward);
+        //Ruotare sull'asse X e Y
+        Quaternion rotation_target = facing_directionX * facing_directionY;
 
         transform.localRotation = Quaternion.RotateTowards(transform.localRotation, transform.localRotation * rotation_target, camera_sensitivity * Time.deltaTime);
-
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, target_z.eulerAngles.z);
     }
 
     public void Raccolta_Input_Movimento(InputAction.CallbackContext ctx)
@@ -96,7 +96,6 @@ public class Player_Movement : MonoBehaviour
         //Se sta premendo il tasto...
         if (ctx.performed)
         {
-            facing_directionZ = Quaternion.AngleAxis(ctx.ReadValue<float>() * velocita_rotazione, Vector3.forward);
             want_rotate = true;
         }
         //Se non lo sta piu' premendo...
