@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Arpione
+  - O2Recharge
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
