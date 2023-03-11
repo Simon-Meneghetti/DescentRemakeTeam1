@@ -6,33 +6,37 @@ public class BulletType : MonoBehaviour
 {
     [SerializeField] public int speed;
     [HideInInspector] public bool colpito;
+    [HideInInspector] public bool arpione;
     public float startTime;
-    Muzzle m;
 
     private void Start()
     {
-        m = FindObjectOfType<Muzzle>();
         startTime = 0;
     }
     void Update()
     {
         //Arpione
-        if (m.arpione == true)
+        if (arpione == true)
         {
             if (colpito == false)
                 gameObject.transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-            else if (m.want_arpion_back == true)
+            else if (want_arpion_back == true)
             {
-                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, m.gameObject.transform.position, Time.deltaTime - startTime);
-                gameObject.transform.rotation = m.gameObject.transform.rotation;
+                var posizione_giocatore = GameObject.FindObjectOfType<Player_Movement>().transform.position;
+
+                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, posizione_giocatore, Time.deltaTime - startTime);
+                gameObject.transform.rotation = gameObject.transform.rotation;
             }
         }
+        //SATCHEL... sempre per te Ale XD... te lo gestisci come vuoi tu...GRAZIE ANCORA EGREGIA CAPO PROGRAMMATRICE MRS BEATRICE SIPOS, PER GLI AMICI... "POS".
+        /*else
+        {
 
+        }
+        */
+        
 
-        //SATCHEL... sempre per te Ale XD... te lo gestisci come vuoi tu
-
-        //else if (m.arpione == false)
 
 
 

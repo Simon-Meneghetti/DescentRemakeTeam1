@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Spara/Esplodi Satchel",
+                    "type": "Button",
+                    "id": "b10365f9-5e56-42e9-a198-ddc86a556f67",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -335,6 +344,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Ritira Arpione",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "322c3c3a-f00c-46b8-8a83-6bdcefa4e911",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spara/Esplodi Satchel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0ea0453-e25c-498d-88f9-455208f025c8",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spara/Esplodi Satchel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

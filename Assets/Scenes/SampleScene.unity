@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -261,8 +261,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1033575667}
-  - {fileID: 1813283361}
   - {fileID: 1017002730}
+  - {fileID: 1813283361}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -388,6 +388,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 820ea5a0-4be6-4329-af3d-d66edd1021c8
     m_ActionName: Giocatore/Ritira Arpione[/DualSenseGamepadHID/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1017002731}
+        m_TargetAssemblyTypeName: Muzzle, Assembly-CSharp
+        m_MethodName: Raccolta_Input_SparaSatchel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b10365f9-5e56-42e9-a198-ddc86a556f67
+    m_ActionName: Giocatore/Spara/Esplodi Satchel[/DualSenseGamepadHID/buttonNorth,/Keyboard/v]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Giocatore
@@ -784,7 +800,7 @@ GameObject:
   - component: {fileID: 1017002730}
   - component: {fileID: 1017002731}
   m_Layer: 6
-  m_Name: centralMuzzle
+  m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -802,7 +818,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 303255524}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1017002731
 MonoBehaviour:
@@ -817,6 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arpioneToSpawn: {fileID: 2666832504740855441, guid: 5793d7c0be929e64b817b34099f21fb4, type: 3}
+  satchelToSpawn: {fileID: 1647362286814428956, guid: af8b77129f3db0944aef00bd5c020d8a, type: 3}
   rate: 0.3
   coolDown: 5
   spawnPosition: {x: 0, y: 0, z: 0}
@@ -938,7 +955,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 303255524}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!23 &1813283362
 MeshRenderer:
