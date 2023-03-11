@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public float maxShield, maxO2;
-    public float shield, oxigen;
+    [HideInInspector] public float shield, oxigen;
 
     public Transform spawnPos;
     void Start()

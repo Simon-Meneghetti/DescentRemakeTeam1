@@ -281,8 +281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e44ccf0fcb36b4889740c79fd8eba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxShield: 20
-  maxO2: 20
+  maxShield: 40
+  maxO2: 40
   shield: 0
   oxigen: 0
   spawnPos: {fileID: 457710183}
