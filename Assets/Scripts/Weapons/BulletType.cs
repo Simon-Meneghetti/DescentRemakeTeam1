@@ -6,10 +6,8 @@ public class BulletType : MonoBehaviour
 {
     [SerializeField] public int speed;
     [HideInInspector] public bool colpito;
-    [HideInInspector] public bool riprendi;
     public float startTime;
     Muzzle m;
-    //[SerializeField] public int damage; --> questo va messo sull'enemy/player
 
     private void Start()
     {
@@ -24,22 +22,25 @@ public class BulletType : MonoBehaviour
             if (colpito == false)
                 gameObject.transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-            else if (riprendi == true)
+            else if (m.want_arpion_back == true)
             {
                 gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, m.gameObject.transform.position, Time.deltaTime - startTime);
                 gameObject.transform.rotation = m.gameObject.transform.rotation;
             }
-
-            if (Input.GetKey(KeyCode.R))
-                riprendi = true;
-
-            else
-                riprendi = false;
         }
 
-        //Satchel
-        else if (m.arpione == false)
-            gameObject.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+        //SATCHEL... sempre per te Ale XD... te lo gestisci come vuoi tu
+
+        //else if (m.arpione == false)
+
+
+
+
+
+
+
+        
 
     }
     private void OnCollisionEnter(Collision collision)
@@ -56,7 +57,12 @@ public class BulletType : MonoBehaviour
             }
         }
 
-        else
-            Destroy(gameObject);
+        //SATCHEL... suonerò ripetitiva, ma è così che funziona...
+        //else
+
+
+
+
+
     }
 }

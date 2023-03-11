@@ -15,7 +15,7 @@ public class OggettoRaccoglibile : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (m.want_arpion_back == true)
         {
             if (preso == true)
             {

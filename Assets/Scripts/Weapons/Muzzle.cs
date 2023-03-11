@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Muzzle : MonoBehaviour
 {
-    [SerializeField] public GameObject bulletToSpawn;
     [SerializeField] public GameObject arpioneToSpawn;
 
     [SerializeField] public float rate;
@@ -18,10 +17,10 @@ public class Muzzle : MonoBehaviour
     [HideInInspector] public int numOfWeapon;
     [HideInInspector] public bool arpione;
 
-    //roba input
-    private bool want_arpion_back;
-
     float spawnTimer;
+
+    //roba input
+    public bool want_arpion_back;
 
     void Start()
     {
@@ -33,35 +32,26 @@ public class Muzzle : MonoBehaviour
         spawnPosition = gameObject.transform.position;
         spawnTimer += Time.deltaTime;
 
-        /*if (Input.GetButtonDown("Jump") || Input.GetButton("Jump"))
-            numOfWeapon = 0;
-
-        else if (Input.GetKeyDown(KeyCode.F))
-            numOfWeapon = 1;
-
-        else
-            numOfWeapon = 2;
-        */
         if (stamina <= 0)
             StartCoroutine(Ricarica());
 
         WeaponChoice(numOfWeapon);
-
-        if(want_arpion_back)
-        {
-            //Fai tornare l'arpione indietro
-        }
     }
     public void WeaponChoice(int n)
     {
         switch (n)
         {
-            case 0:
+            case 0:                                         // SATCHEL... QUESTO E' PER TE ALE
                 if (spawnTimer >= rate && stamina > 0)
                 {
                     stamina--;
-                    GameObject proiettile_spawnato = Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
-                    proiettile_spawnato.transform.rotation = gameObject.transform.rotation;
+                    //istanzia la carica satchel e sistema la rotazione
+
+
+
+
+
+
                     spawnTimer = 0;
                     arpione = false;
                 }
@@ -84,14 +74,18 @@ public class Muzzle : MonoBehaviour
 
     public void Raccolta_Input_SparaArpione(InputAction.CallbackContext ctx)
     {
-        if(ctx.performed)
+        if (ctx.performed)
             numOfWeapon = 1;
+        else
+            numOfWeapon = 2;
     }
 
     public void Raccolta_Input_RipresaArpione(InputAction.CallbackContext ctx)
     {
         if(ctx.started)
+        {
             want_arpion_back= true;
+        }
         else if(ctx.canceled)
             want_arpion_back= false;
     }

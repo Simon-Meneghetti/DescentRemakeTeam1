@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -263,7 +263,6 @@ Transform:
   - {fileID: 1033575667}
   - {fileID: 1813283361}
   - {fileID: 1017002730}
-  - {fileID: 364539490}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -374,7 +373,19 @@ MonoBehaviour:
     m_ActionId: 7963f043-6537-4572-bc43-e359b639cf75
     m_ActionName: Giocatore/Spara Arpione[/DualSenseGamepadHID/rightTrigger]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1017002731}
+        m_TargetAssemblyTypeName: Muzzle, Assembly-CSharp
+        m_MethodName: Raccolta_Input_RipresaArpione
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 820ea5a0-4be6-4329-af3d-d66edd1021c8
     m_ActionName: Giocatore/Ritira Arpione[/DualSenseGamepadHID/leftTrigger]
   m_NeverAutoSwitchControlSchemes: 0
@@ -588,36 +599,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &364539489
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 364539490}
-  m_Layer: 0
-  m_Name: Empty_for_muzzle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &364539490
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364539489}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.0221796, y: 0.4923699, z: -1.1066201}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 303255524}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &457710182
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017002729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.37, z: 2.1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 303255524}
@@ -835,7 +816,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618f0406348deae4f8717d8b8b1f17b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletToSpawn: {fileID: 364539489}
   arpioneToSpawn: {fileID: 2666832504740855441, guid: 5793d7c0be929e64b817b34099f21fb4, type: 3}
   rate: 0.3
   coolDown: 5
@@ -844,6 +824,7 @@ MonoBehaviour:
   maxStamina: 50
   numOfWeapon: 0
   arpione: 0
+  want_arpion_back: 0
 --- !u!1 &1033575664
 GameObject:
   m_ObjectHideFlags: 0
