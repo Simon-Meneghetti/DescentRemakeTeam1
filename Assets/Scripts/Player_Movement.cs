@@ -65,9 +65,13 @@ public class Player_Movement : MonoBehaviour
         if (want_rotate)
         {
             rb.AddRelativeTorque(transform.forward * rotate_direction * velocita_rotazione * Time.deltaTime);
+
+            rb.constraints = RigidbodyConstraints.None;
         }
         else
         {
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+
             rotate_direction = 0;
         }
 

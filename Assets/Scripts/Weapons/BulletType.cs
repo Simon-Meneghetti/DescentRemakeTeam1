@@ -18,6 +18,7 @@ public class BulletType : MonoBehaviour
     }
     void Update()
     {
+        //Arpione
         if (m.arpione == true)
         {
             if (colpito == false)
@@ -36,6 +37,7 @@ public class BulletType : MonoBehaviour
                 riprendi = false;
         }
 
+        //Satchel
         else if (m.arpione == false)
             gameObject.transform.Translate(Vector3.forward * speed * Time.deltaTime);
 

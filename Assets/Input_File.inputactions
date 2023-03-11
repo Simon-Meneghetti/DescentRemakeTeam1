@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Girarsi",
+                    "name": "Girarsi XY",
                     "type": "PassThrough",
                     "id": "bdea89ad-fe0a-4067-b376-23ca023c7c6f",
                     "expectedControlType": "Vector2",
@@ -24,18 +24,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ruotarsi",
+                    "name": "Ruotarsi Z",
                     "type": "Value",
                     "id": "6ff3bff1-8cc1-4b6f-9ec6-0862e8a74004",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Spara Arpione",
+                    "type": "Button",
+                    "id": "7963f043-6537-4572-bc43-e359b639cf75",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ritira Arpione",
+                    "type": "Button",
+                    "id": "820ea5a0-4be6-4329-af3d-d66edd1021c8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "3D Vector",
+                    "name": "Tastiera",
                     "id": "8843259f-8ad0-4ee7-a17c-8d2243de62e5",
                     "path": "3DVector",
                     "interactions": "",
@@ -112,13 +130,90 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "GamePad",
+                    "id": "6fd0bbb4-e9be-4d77-83ee-4be1f669d28a",
+                    "path": "3DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movimento",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "forward",
+                    "id": "61364bf4-a419-4b1e-94d3-d8a4acca2327",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movimento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "backward",
+                    "id": "3d2748c2-ec13-4932-a758-4cbb58a4cde5",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movimento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "4fb2bf05-5b8e-4fc0-b292-8b06318d691e",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movimento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "bb0ecd7b-454a-4a53-8638-db06229ce3df",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movimento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "b2cee42a-890a-4a75-8db7-b4b285631064",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movimento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "32da3f1d-3a3c-4594-8a4d-439b4ca6bdfa",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movimento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "315b0ebf-487e-459b-b675-7f9e46f1d252",
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Girarsi",
+                    "action": "Girarsi XY",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -129,18 +224,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Girarsi",
+                    "action": "Girarsi XY",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "Tastiera",
                     "id": "96d2daad-38b9-460a-b35b-47a7ab7b859b",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Ruotarsi",
+                    "action": "Ruotarsi Z",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -151,7 +246,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Ruotarsi",
+                    "action": "Ruotarsi Z",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -162,9 +257,86 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Ruotarsi",
+                    "action": "Ruotarsi Z",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "Controller",
+                    "id": "928bbfae-ff90-4437-b35b-8f689e53d29d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ruotarsi Z",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "positive",
+                    "id": "bb6fcd25-249a-4854-b8af-f57bacb6640d",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ruotarsi Z",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "negative",
+                    "id": "84e49ac3-0d47-4bd7-8ca9-f4bcfb823336",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ruotarsi Z",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "e38275cf-fb7c-4734-9799-d34c0f34798e",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spara Arpione",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "374c2ce1-c8da-434a-9b1c-6a327713cd18",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spara Arpione",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "660559e7-63d0-477a-aaa1-e2f83bb3aa87",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ritira Arpione",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c62cf704-7d14-492d-80f6-4e66e5b0eba7",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ritira Arpione",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

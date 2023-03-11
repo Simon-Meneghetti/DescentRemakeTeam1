@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class Muzzle : MonoBehaviour
@@ -16,6 +17,10 @@ public class Muzzle : MonoBehaviour
 
     [HideInInspector] public int numOfWeapon;
     [HideInInspector] public bool arpione;
+
+    //roba input
+    private bool want_arpion_back;
+
     float spawnTimer;
 
     void Start()
@@ -28,7 +33,7 @@ public class Muzzle : MonoBehaviour
         spawnPosition = gameObject.transform.position;
         spawnTimer += Time.deltaTime;
 
-        if (Input.GetButtonDown("Jump") || Input.GetButton("Jump"))
+        /*if (Input.GetButtonDown("Jump") || Input.GetButton("Jump"))
             numOfWeapon = 0;
 
         else if (Input.GetKeyDown(KeyCode.F))
@@ -36,11 +41,16 @@ public class Muzzle : MonoBehaviour
 
         else
             numOfWeapon = 2;
-
+        */
         if (stamina <= 0)
             StartCoroutine(Ricarica());
 
         WeaponChoice(numOfWeapon);
+
+        if(want_arpion_back)
+        {
+            //Fai tornare l'arpione indietro
+        }
     }
     public void WeaponChoice(int n)
     {
@@ -71,6 +81,21 @@ public class Muzzle : MonoBehaviour
                 break;
         }
     }
+
+    public void Raccolta_Input_SparaArpione(InputAction.CallbackContext ctx)
+    {
+        if(ctx.performed)
+            numOfWeapon = 1;
+    }
+
+    public void Raccolta_Input_RipresaArpione(InputAction.CallbackContext ctx)
+    {
+        if(ctx.started)
+            want_arpion_back= true;
+        else if(ctx.canceled)
+            want_arpion_back= false;
+    }
+
     IEnumerator Ricarica()
     {
         yield return new WaitForSeconds(coolDown);
