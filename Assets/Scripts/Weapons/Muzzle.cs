@@ -18,12 +18,18 @@ public class Muzzle : MonoBehaviour
 
     float spawnTimer;
 
-    //roba input
+    //Roba input
     public bool want_arpion_back;
+    [HideInInspector] public bool harpoon;
+    [HideInInspector] public bool attached;
+
+    //Sachel
+    private BulletType satchel;
 
     void Start()
     {
         stamina = maxStamina;
+        harpoon = true;
     }
 
     void Update()
@@ -37,29 +43,36 @@ public class Muzzle : MonoBehaviour
 
     public void Raccolta_Input_SparaArpione(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && spawnTimer >= rate)
+        if (ctx.performed && harpoon)
         {
             GameObject proiettile_spawnato = Instantiate(arpioneToSpawn, spawnPosition, Quaternion.identity);
 
             proiettile_spawnato.transform.rotation = gameObject.transform.rotation;
 
             spawnTimer = 0;
+
             proiettile_spawnato.GetComponent<BulletType>().arpione = true;
+
+            harpoon= false;
         }
     }
 
     public void Raccolta_Input_SparaSatchel(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && spawnTimer >= rate)
+        if (ctx.performed && satchel == null)
         {
             stamina--;
 
             //istanzia la carica satchel e sistema la rotazione
-            GameObject proiettile_spawnato = Instantiate(satchelToSpawn, spawnPosition, Quaternion.identity);
+            satchel = Instantiate(satchelToSpawn, spawnPosition, Quaternion.identity).GetComponent<BulletType>();
 
-            proiettile_spawnato.transform.rotation = gameObject.transform.rotation;
+            satchel.transform.rotation = gameObject.transform.rotation;
 
             spawnTimer = 0;
+        }
+        else if(ctx.performed && satchel != null && ctx.performed && satchel.colpito)
+        {
+            satchel.EsplosioneSatchel();
         }
     }
 

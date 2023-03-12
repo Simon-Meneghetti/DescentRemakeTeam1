@@ -67,10 +67,11 @@ public class Player_Movement : MonoBehaviour
             rb.AddRelativeTorque(transform.forward * rotate_direction * velocita_rotazione * Time.deltaTime);
 
             rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
         }
         else
         {
-            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             rotate_direction = 0;
         }
