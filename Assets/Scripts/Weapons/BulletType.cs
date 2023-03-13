@@ -13,23 +13,19 @@ public class BulletType : MonoBehaviour
 
     private Muzzle m;
 
-    //Velocità arpione, da vedere.
-    public float startTime;
-
     //ROBA PER LA SATCHEL
     public float raggio_satchel;
     //Gli oggetti che verranno influenzati dalla granata.
     public LayerMask gio_formaggio;
     //Il danno che farà la satchel.
     public float quantita_danno;
-    //Quando attaccata, dopo un pò esplode.
-    public float durata_sachel;
+    //Quando attaccata, dopo un po' esplode.
+    public float durata_satchel;
 
 
 
     private void Start()
     {
-        startTime = 0;
         m = FindObjectOfType<Muzzle>();
     }
     void Update()
@@ -41,17 +37,17 @@ public class BulletType : MonoBehaviour
             {
                 var posizione_giocatore = GameObject.FindObjectOfType<Player_Movement>().transform.position;
 
-                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, posizione_giocatore, Time.deltaTime - startTime);
+                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, posizione_giocatore, speed * Time.deltaTime);
                 gameObject.transform.rotation = gameObject.transform.rotation;
             }
         }
         //Se non è un arpione sarà una satchel e se è attaccata dopo un tot esplode.
         else if(!arpione && colpito) 
         {
-            if (durata_sachel <= 0)
+            if (durata_satchel <= 0)
                 EsplosioneSatchel();
-            else if(durata_sachel > 0)
-                durata_sachel -= Time.deltaTime;
+            else if(durata_satchel > 0)
+                durata_satchel -= Time.deltaTime;
         }
 
         //SATCHEL... sempre per te Ale XD... te lo gestisci come vuoi tu...GRAZIE ANCORA EGREGIA CAPO PROGRAMMATRICE MRS BEATRICE SIPOS, PER GLI AMICI... "POS".
@@ -99,7 +95,7 @@ public class BulletType : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (arpione == true)
         {
@@ -108,7 +104,7 @@ public class BulletType : MonoBehaviour
             //In teoria funziona ma non si sa se funziona.
             gameObject.transform.Translate(Vector3.forward * 0 * Time.deltaTime);
 
-            if (collision.collider.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
                 arpione = false;
 
@@ -119,17 +115,17 @@ public class BulletType : MonoBehaviour
         }
         else
         {
-            if (!collision.transform.CompareTag("Player"))
+            if (!other.transform.CompareTag("Player"))
             {
                 colpito = true;
 
-                transform.SetParent(collision.transform);
+                transform.SetParent(other.transform);
 
                 Rigidbody rb = GetComponent<Rigidbody>();
 
                 rb.constraints = RigidbodyConstraints.FreezeAll;
             }
-            else if(collision.transform.CompareTag("Player") && colpito)
+            else if(other.transform.CompareTag("Player") && colpito)
             {
                 Destroy(gameObject);
             }

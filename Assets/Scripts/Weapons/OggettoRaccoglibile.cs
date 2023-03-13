@@ -5,11 +5,13 @@ using UnityEngine;
 public class OggettoRaccoglibile : MonoBehaviour
 {
     [HideInInspector] public bool preso;
+    public float speed;
     public float startTime;
     Muzzle m;
     private void Start()
     {
         m = FindObjectOfType<Muzzle>();
+        
         startTime = 0;
     }
 
@@ -19,7 +21,7 @@ public class OggettoRaccoglibile : MonoBehaviour
         {
             if (preso == true)
             {
-                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, m.gameObject.transform.position, Time.deltaTime - startTime);
+                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, m.gameObject.transform.position, speed * Time.deltaTime);
                 gameObject.transform.rotation = m.gameObject.transform.rotation;
             }
         }

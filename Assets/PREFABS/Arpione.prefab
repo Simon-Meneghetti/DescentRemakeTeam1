@@ -115,8 +115,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   colpito: 0
-  riprendi: 0
-  startTime: 0
+  arpione: 0
+  raggio_satchel: 0
+  gio_formaggio:
+    serializedVersion: 2
+    m_Bits: 0
+  quantita_danno: 0
+  durata_satchel: 0
 --- !u!136 &5588492577378351069
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -125,7 +130,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2666832506255086782}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.50000006
   m_Height: 1.1

@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preso: 0
+  speed: 4
   startTime: 0
 --- !u!65 &4346622893606651444
 BoxCollider:

@@ -16,12 +16,15 @@ public class Muzzle : MonoBehaviour
     [SerializeField] public float stamina;
     [SerializeField] public float maxStamina;
 
-    float spawnTimer;
+    [HideInInspector] public float spawnTimer;
+    [HideInInspector] public float rechargeTimer;
 
     //Roba input
-    public bool want_arpion_back;
+    [HideInInspector] public bool want_arpion_back;
     [HideInInspector] public bool harpoon;
     [HideInInspector] public bool attached;
+    [HideInInspector] public bool taser;
+    [HideInInspector] public bool ricarica;
 
     //Sachel
     private BulletType satchel;
@@ -38,12 +41,29 @@ public class Muzzle : MonoBehaviour
         spawnTimer += Time.deltaTime;
 
         if (stamina <= 0)
-            StartCoroutine(Ricarica());
+        {
+            stamina = 0;
+            ricarica = true;
+        }
+        if(ricarica == true)
+        {
+            rechargeTimer += Time.deltaTime;
+            if(rechargeTimer>=coolDown)
+            {
+                stamina = maxStamina;
+                ricarica = false;
+            }
+        }
+        else
+        {
+            rechargeTimer = 0;
+        }
     }
+
 
     public void Raccolta_Input_SparaArpione(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && harpoon)
+        if (ctx.performed && harpoon && taser == false)
         {
             GameObject proiettile_spawnato = Instantiate(arpioneToSpawn, spawnPosition, Quaternion.identity);
 
@@ -53,7 +73,7 @@ public class Muzzle : MonoBehaviour
 
             proiettile_spawnato.GetComponent<BulletType>().arpione = true;
 
-            harpoon= false;
+            harpoon = false;
         }
     }
 
@@ -70,7 +90,7 @@ public class Muzzle : MonoBehaviour
 
             spawnTimer = 0;
         }
-        else if(ctx.performed && satchel != null && ctx.performed && satchel.colpito)
+        else if (ctx.performed && satchel != null && ctx.performed && satchel.colpito)
         {
             satchel.EsplosioneSatchel();
         }
@@ -78,15 +98,25 @@ public class Muzzle : MonoBehaviour
 
     public void Raccolta_Input_RipresaArpione(InputAction.CallbackContext ctx)
     {
-        if(ctx.started)
-            want_arpion_back= true;
-        else if(ctx.canceled)
-            want_arpion_back= false;
+        if (ctx.started)
+            want_arpion_back = true;
+        else if (ctx.canceled)
+            want_arpion_back = false;
     }
 
-    IEnumerator Ricarica()
+    public void Raccolta_Input_SparaTaser(InputAction.CallbackContext ctx)
     {
-        yield return new WaitForSeconds(coolDown);
-        stamina = maxStamina;
+        if (ctx.performed)
+        {
+            if (stamina > 0)
+            {
+                taser = true;
+                stamina--;
+            }
+
+        }
+        else
+            taser = false;
+
     }
 }
