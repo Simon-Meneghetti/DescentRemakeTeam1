@@ -229,7 +229,7 @@
                     "id": "315b0ebf-487e-459b-b675-7f9e46f1d252",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=2,y=2)",
                     "groups": "",
                     "action": "Girarsi XY",
                     "isComposite": false,

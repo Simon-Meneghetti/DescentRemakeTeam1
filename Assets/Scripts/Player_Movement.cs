@@ -20,12 +20,12 @@ public class Player_Movement : MonoBehaviour
     private bool want_rotate = false;
 
     [Header("Speed Settings")]
-    [SerializeField, Range(0, 500)] private float velocita_movimento;
-    [SerializeField, Range(0, 500)] private float velocita_decelerazione;
-    [SerializeField, Range(0, 500)] private float velocita_massima;
+    [SerializeField, Range(0, 100)] private float velocita_movimento;
+    [SerializeField, Range(0, 100)] private float velocita_decelerazione;
+    [SerializeField, Range(0, 100)] private float velocita_massima;
 
-    [SerializeField, Range(0, 500)] private float velocita_rotazione;
-    [SerializeField, Range(0, 500)] private float camera_sensitivity;
+    [SerializeField, Range(0, 100)] private float velocita_rotazione;
+    [SerializeField, Range(0, 100)] private float camera_sensitivity;
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +79,10 @@ public class Player_Movement : MonoBehaviour
         //Ruotare sull'asse X e Y
         Quaternion rotation_target = facing_directionX * facing_directionY;
 
-        transform.localRotation = Quaternion.RotateTowards(transform.localRotation, transform.localRotation * rotation_target, camera_sensitivity * Time.deltaTime);
+        //transform.localRotation = Quaternion.RotateTowards(transform.localRotation, transform.localRotation * facing_directionX, camera_sensitivity * Time.deltaTime);
+
+        transform.localRotation *= rotation_target;
+
     }
 
     public void Raccolta_Input_Movimento(InputAction.CallbackContext ctx)
@@ -89,9 +92,9 @@ public class Player_Movement : MonoBehaviour
 
     public void Raccolta_Input_Girarsi(InputAction.CallbackContext ctx)
     {
-        facing_directionX = Quaternion.AngleAxis(-ctx.ReadValue<Vector2>().y, Vector3.right);
+        facing_directionX = Quaternion.AngleAxis(-ctx.ReadValue<Vector2>().y * camera_sensitivity * Time.deltaTime, Vector3.right);
 
-        facing_directionY = Quaternion.AngleAxis(ctx.ReadValue<Vector2>().x, Vector3.up);
+        facing_directionY = Quaternion.AngleAxis(ctx.ReadValue<Vector2>().x * camera_sensitivity * Time.deltaTime, Vector3.up);
     }
 
     public void Raccolta_Input_Ruotarsi(InputAction.CallbackContext ctx)
