@@ -94,7 +94,7 @@ public class BulletType : MonoBehaviour
         Destroy(gameObject);
     }
 
-
+    //USARE I LAYER NON I TAGZS
     private void OnTriggerEnter(Collider other)
     {
         if (arpione == true)
@@ -113,7 +113,13 @@ public class BulletType : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else
+        
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        //Togliere questo bool se non sono entrambi trigger
+        if(!arpione)
         {
             if (!other.transform.CompareTag("Player"))
             {
@@ -125,7 +131,7 @@ public class BulletType : MonoBehaviour
 
                 rb.constraints = RigidbodyConstraints.FreezeAll;
             }
-            else if(other.transform.CompareTag("Player") && colpito)
+            else if (other.transform.CompareTag("Player") && colpito)
             {
                 Destroy(gameObject);
             }
