@@ -112,13 +112,12 @@ MonoBehaviour:
   speed: 15
   colpito: 0
   arpione: 0
-  startTime: 0
   raggio_satchel: 2.5
   gio_formaggio:
     serializedVersion: 2
     m_Bits: 192
   quantita_danno: 20
-  durata_sachel: 3
+  durata_satchel: 5
 --- !u!54 &6305978776764416481
 Rigidbody:
   m_ObjectHideFlags: 0
