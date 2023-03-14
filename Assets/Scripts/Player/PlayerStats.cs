@@ -19,7 +19,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (shield == maxShield && oxigen > 0)
         {
-            oxigen -= 0.2f * Time.deltaTime;
+            oxigen -= 0.5f * Time.deltaTime;
             if (oxigen <= 0)
             {
                 Death();
