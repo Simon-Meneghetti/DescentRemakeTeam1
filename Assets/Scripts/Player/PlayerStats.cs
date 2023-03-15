@@ -8,8 +8,12 @@ public class PlayerStats : MonoBehaviour
     public float shield, oxigen;
 
     public Transform spawnPos;
+
+    Muzzle m;
+
     void Start()
     {
+        m = FindObjectOfType<Muzzle>();
         shield = maxShield;
         oxigen = maxO2;
     }
@@ -17,18 +21,9 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        if (shield == maxShield && oxigen > 0)
+        if (oxigen > 0)
         {
-            oxigen -= 0.5f * Time.deltaTime;
-            if (oxigen <= 0)
-            {
-                Death();
-            }
-        }
-        else if (shield != maxShield && oxigen > 0)
-        {
-            oxigen -= 2f * Time.deltaTime;
-
+            oxigen -= (1/(shield / 100) -0.2f) * Time.deltaTime;
             if (oxigen <= 0)
             {
                 Death();
@@ -42,8 +37,17 @@ public class PlayerStats : MonoBehaviour
         {
             if (oxigen < maxO2)
             {
-                oxigen+= 2f * Time.deltaTime;
+                oxigen += 2f * Time.deltaTime;
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("CollectibleSatchel"))
+        {
+            Destroy(other.gameObject);
+            m.satchelCounter++;
         }
     }
     private void OnCollisionEnter(Collision collision)

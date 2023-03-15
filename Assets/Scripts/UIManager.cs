@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public Image StaminaBar1;
     public Image O2Bar;
     public Image ShieldBar;
-
+    public Text Counter;
     Muzzle m;
     PlayerStats pS;
     void Start()
@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
         StaminaBar.fillAmount = m.stamina/m.maxStamina; 
         StaminaBar1.fillAmount = m.stamina/m.maxStamina; 
         O2Bar.fillAmount = pS.oxigen/pS.maxO2; 
-        ShieldBar.fillAmount = pS.shield/pS.maxShield; 
+        ShieldBar.fillAmount = pS.shield/pS.maxShield;
+        Counter.text = m.satchelCounter.ToString("00");
     }
 }

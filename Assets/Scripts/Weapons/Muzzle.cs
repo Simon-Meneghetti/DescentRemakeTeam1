@@ -27,10 +27,12 @@ public class Muzzle : MonoBehaviour
     [HideInInspector] public bool ricarica;
 
     //Sachel
+    public int satchelCounter;
     private BulletType satchel;
 
     void Start()
     {
+        satchelCounter = 1;
         stamina = maxStamina;
         harpoon = true;
     }
@@ -79,14 +81,14 @@ public class Muzzle : MonoBehaviour
 
     public void Raccolta_Input_SparaSatchel(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && satchel == null)
+        if (ctx.performed && satchel == null && satchelCounter>0)
         {
-            stamina--;
-
             //istanzia la carica satchel e sistema la rotazione
             satchel = Instantiate(satchelToSpawn, spawnPosition, Quaternion.identity).GetComponent<BulletType>();
 
             satchel.transform.rotation = gameObject.transform.rotation;
+
+            satchelCounter--;
 
             spawnTimer = 0;
         }
