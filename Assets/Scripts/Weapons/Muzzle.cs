@@ -32,7 +32,6 @@ public class Muzzle : MonoBehaviour
 
     void Start()
     {
-        satchelCounter = 1;
         stamina = maxStamina;
         harpoon = true;
     }

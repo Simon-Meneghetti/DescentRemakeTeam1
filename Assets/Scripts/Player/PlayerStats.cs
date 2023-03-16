@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -49,14 +50,19 @@ public class PlayerStats : MonoBehaviour
             Destroy(other.gameObject);
             m.satchelCounter++;
         }
+
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("EnemyBullet"))       //Ricorda di mettere il tag ai bullet dell'enemy
+        if (collision.collider.CompareTag("Enemy"))       //Ricorda di mettere il tag ai bullet dell'enemy
         {
             if (shield > 0)
             {
-                shield--;
+                //Chiedere ad i designer quanto danno fa.
+                shield -= collision.transform.GetComponent<Nemico>().damage;
+                //ShakeEffect
+                //Mettere personalizzabili dal gamemanager l'effetto
+                transform.DOShakeRotation(0.3f, 45);
             }
         }
     }
