@@ -64,7 +64,7 @@ public class Player_Movement : MonoBehaviour
         //Ruotare sull'asse Z
         if (want_rotate)
         {
-            rb.AddRelativeTorque(transform.forward * rotate_direction * velocita_rotazione * Time.deltaTime);
+            rb.AddTorque(transform.forward * rotate_direction * velocita_rotazione * Time.deltaTime);
 
             rb.constraints = RigidbodyConstraints.None;
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
