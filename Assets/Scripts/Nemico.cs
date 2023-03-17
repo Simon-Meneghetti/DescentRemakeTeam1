@@ -17,18 +17,21 @@ public class Nemico : MonoBehaviour
     public float angleRange;
     //La distanza con cui può sentire il giocatore.
     public float hearRange;
-    
+
     ///////////////////////////////////// 
 
     //Percorso
+    [Header("Percorso")]
     public List<Transform> defaultPath;
-    public List<Vector3> comeBackPath;
+    [SerializeField] private List<Vector3> comeBackPath;
 
     private int index = 0;
+    private int indexApp;
 
     private bool contrario;
     private bool coroutineRunning;
 
+    [Header("Cosa può istruire la visione?")]
     //Maschera del raycast.
     public LayerMask lineOfSight;
 
@@ -87,6 +90,8 @@ public class Nemico : MonoBehaviour
             //rb.AddForce((player.transform.position - transform.position).normalized * speed * Time.deltaTime);
             rb.velocity = Vector3.zero;
 
+            index = indexApp;
+
             //Se il comeBackPath è vuoto...
             if (comeBackPath.Count <= 0)
             {
@@ -115,6 +120,8 @@ public class Nemico : MonoBehaviour
                         contrario = !contrario;
                     }
                 }
+
+                indexApp = index;
             }
             else
             {
