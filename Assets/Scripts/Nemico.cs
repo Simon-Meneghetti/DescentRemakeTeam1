@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Threading;
 using DG.Tweening;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class Nemico : MonoBehaviour
@@ -15,7 +17,19 @@ public class Nemico : MonoBehaviour
     public float angleRange;
     //La distanza con cui può sentire il giocatore.
     public float hearRange;
+    
+    ///////////////////////////////////// 
 
+    //Percorso
+    public List<Transform> defaultPath;
+    public List<Vector3> comeBackPath;
+
+    private int index = 0;
+
+    private bool contrario;
+    private bool coroutineRunning;
+
+    //Maschera del raycast.
     public LayerMask lineOfSight;
 
     [Header("Stats")]
@@ -26,7 +40,7 @@ public class Nemico : MonoBehaviour
 
     //Componenti nemico che ci servono
     private Rigidbody rb;
-    private bool can_chase = true; 
+    private bool can_move = true; 
 
 
     // Start is called before the first frame update
@@ -39,7 +53,7 @@ public class Nemico : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(can_chase)
+        if(can_move)
             EnemyMovement(Detection());
     }
 
@@ -48,6 +62,9 @@ public class Nemico : MonoBehaviour
         //Se il giocatore è spottato...
         if (player_spotted)
         {
+            if(!coroutineRunning)
+                StartCoroutine(CreateComeBackPath());
+            
             //Fissa il player in modo inquietante
             transform.LookAt(player.transform.position);
 
@@ -64,25 +81,99 @@ public class Nemico : MonoBehaviour
         //Se il giocatore non è spottato...
         else
         {
+            coroutineRunning = false;
             //Torna a fissare il prossimo punto in cui dovrà andare
-            //transform.LookAt(nextwaypoint.transform.position);
             //Si muove dove dovrà andare
             //rb.AddForce((player.transform.position - transform.position).normalized * speed * Time.deltaTime);
             rb.velocity = Vector3.zero;
+
+            //Se il comeBackPath è vuoto...
+            if (comeBackPath.Count <= 0)
+            {
+                //Guarda la direzione in cui deve andare
+                transform.LookAt(defaultPath[index]);
+                //Il nemico si muove verso il prossimo patrol point.
+                transform.position = Vector3.MoveTowards(transform.position, defaultPath[index].transform.position, speed * Time.deltaTime);
+
+                //Se è arrivato...
+                if (Vector3.Distance(transform.position, defaultPath[index].transform.position) < 0.2)
+                {
+                    //Sta seguendo il percorso normalmente?
+                    if (index < defaultPath.Count - 1 && !contrario)
+                    {
+                        index++;
+                    }
+                    //O al contrario?
+                    else if (index > 0 && contrario)
+                    {
+                        index--;
+                    }
+                    //Se ha raggiunto la fine del percorso lo percorrerà al contrario.
+                    else if (index >= defaultPath.Count - 1 || index <= 0)
+                    {
+                        StartCoroutine(StunTime(1.5f));
+                        contrario = !contrario;
+                    }
+                }
+            }
+            else
+            {
+                //Partiamo dall'ultima posizione creata
+                index = comeBackPath.Count - 1;
+
+                //Il nemico si muove verso il prossimo patrol point.
+                transform.position = Vector3.MoveTowards(transform.position, comeBackPath[index], speed * Time.deltaTime);
+
+                //Se è arrivato...
+                if (Vector3.Distance(transform.position, comeBackPath[index]) < 0.2)
+                {
+                    //O al contrario?
+                    if (index >= 0)
+                    {
+                        comeBackPath.RemoveAt(index);
+                        if (index != 0)
+                        {
+                            index--;
+                            //Guarda la direzione in cui deve andare
+                            transform.LookAt(comeBackPath[index]);
+                        }
+                    }
+                    //Se ha raggiunto la fine del percorso lo percorrerà al contrario.
+                    else
+                    {
+
+                    }
+
+                }
+            }
         }
     }
+
+    IEnumerator CreateComeBackPath()
+    {
+        //La coroutine sta andando!
+        coroutineRunning = true;
+
+        while (coroutineRunning)
+        {
+            //Ogni 2 secondi 
+            yield return new WaitForSeconds(1);
+            //Aggiunge un punto per tornare indietro
+            comeBackPath.Add(transform.position);
+        }
+
+        StopCoroutine(CreateComeBackPath());
+    }
+
 
     //Funzione che serve al nemico per trovare il giocatore.
     bool Detection()
     {
-        //Prodotto saclare tra la direzione e il forward del nemico 
-        //Posso anche calcolarmi l'angolo compreso tra i due vettori
-
         //Il vettore che ci da la direzione da questo nemico al player.
         Vector3 directionToPlayer = player.transform.position - transform.position;
 
         //Se il giocatore non è troppo distante...
-        if (Vector3.Distance(transform.position, player.transform.position) <= visionRange)
+        if (Vector3.Distance(transform.position, player.transform.position) <= visionRange && Vector3.Distance(transform.position, player.transform.position) /* - rumore prodotto dal player */ <= hearRange)
         {
             //...e si trova nell'angolo di visione del nemico...
             if (Vector3.Angle(transform.forward, directionToPlayer) <= angleRange || Vector3.Distance(transform.position, player.transform.position) /* - rumore prodotto dal player */ <= hearRange)
@@ -103,14 +194,14 @@ public class Nemico : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Player") && can_chase)
+        if (collision.transform.CompareTag("Player") && can_move)
         {
             //Direzione del knockback
             Vector3 direzione = (collision.transform.position - transform.position).normalized;
 
             //Knockback
             player.GetComponent<Rigidbody>().AddForce(direzione * knockback, ForceMode.Impulse);
-            
+
             //Stop chase per un pò.
             //enemy_type = Type.Distanza;
             StartCoroutine(StunTime(1));
@@ -120,11 +211,11 @@ public class Nemico : MonoBehaviour
     IEnumerator StunTime(float time)
     {
         rb.velocity = Vector3.zero;
-        can_chase = false;
+        can_move = false;
         //Aspetta per un tot
         yield return new WaitForSeconds(time);
         //Restituisce l'opposto del bool
-        can_chase = true;
+        can_move = true;
         rb.velocity = Vector3.zero;
     }
 
