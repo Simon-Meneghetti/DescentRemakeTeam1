@@ -121,10 +121,10 @@ public class BulletType : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         //Togliere questo bool se non sono entrambi trigger
-        if(!arpione && !colpito)
+        if(!arpione)
         {
             //Se non è il giocatore (Siccome non si può incollare al giocatore)
-            if (!other.transform.CompareTag("Player"))
+            if (!other.transform.CompareTag("Player") && !colpito)
             {
                 //Ha colpito qualcosa
                 colpito = true;

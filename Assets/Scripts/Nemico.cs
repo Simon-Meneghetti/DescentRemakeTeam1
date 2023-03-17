@@ -137,7 +137,7 @@ public class Nemico : MonoBehaviour
             Vector3 direzione = (collision.transform.position - transform.position).normalized;
 
             //Knockback
-            player.GetComponent<Rigidbody>().AddForce(direzione * knockback * Time.deltaTime, ForceMode.Impulse);
+            player.GetComponent<Rigidbody>().AddForce(direzione * knockback, ForceMode.Impulse);
             
             //Stop chase per un pò.
             //enemy_type = Type.Distanza;
