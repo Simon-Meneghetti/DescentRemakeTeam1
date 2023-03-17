@@ -79,7 +79,7 @@ public class Nemico : MonoBehaviour
              * Velocity se ne frega di qualsiasi altra forza applicata e lo muove verso il player.
              */
 
-            rb.velocity = (player.transform.position - transform.position).normalized * speed * 100 * Time.deltaTime;
+            rb.velocity = (player.transform.position - transform.position).normalized * speed * 500 * Time.deltaTime;
         }
         //Se il giocatore non è spottato...
         else
@@ -225,7 +225,7 @@ public class Nemico : MonoBehaviour
         rb.velocity = Vector3.zero;
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
 
         Quaternion leftRayRotation = Quaternion.AngleAxis(-angleRange, Vector3.up);
