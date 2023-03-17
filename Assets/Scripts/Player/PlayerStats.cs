@@ -24,7 +24,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (oxigen > 0)
         {
-            oxigen -= (1/(shield / 100) -0.2f) * Time.deltaTime;
+            oxigen -= (1 + (-(shield / 100) + 1f)) * Time.deltaTime;
             if (oxigen <= 0)
             {
                 Death();
