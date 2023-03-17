@@ -7,10 +7,6 @@ using UnityEngine;
 public class Nemico : MonoBehaviour
 {
     private GameObject player;
-    public enum Type { Distanza, Ravvicinato };
-
-    [Header("Enemy Type")]
-    public Type enemy_type;
 
     [Header("Stealth settings")]
     //La distanza del suo cono visivo
@@ -25,7 +21,6 @@ public class Nemico : MonoBehaviour
     [Header("Stats")]
     public float speed;
     public float damage;
-    public float shootRange;
     public float knockback;
 
 
@@ -56,38 +51,15 @@ public class Nemico : MonoBehaviour
             //Fissa il player in modo inquietante
             transform.LookAt(player.transform.position);
 
-            //Se il nemico è quello a distanza...
-            if (enemy_type == Type.Ravvicinato)
-            {
-                /* Varie opzioni di movimento 
-                 * Se uso la posizione trapassa i muri
-                    //transform.position = Vector3.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
-                 * Se uso addforce non riesce a raggiungere il player se si muove al suo lato, o almeno lo raggiunge tramite una spirale
-                    //rb.AddForce((player.transform.position - transform.position).normalized * speed * Time.deltaTime);
-                 * Velocity se ne frega di qualsiasi altra forza applicata e lo muove verso il player.
-                 */
+            /* Varie opzioni di movimento 
+             * Se uso la posizione trapassa i muri
+                //transform.position = Vector3.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
+             * Se uso addforce non riesce a raggiungere il player se si muove al suo lato, o almeno lo raggiunge tramite una spirale
+                //rb.AddForce((player.transform.position - transform.position).normalized * speed * Time.deltaTime);
+             * Velocity se ne frega di qualsiasi altra forza applicata e lo muove verso il player.
+             */
 
-                rb.velocity = (player.transform.position - transform.position).normalized * speed * 100 * Time.deltaTime;
-            }
-            //Se il nemico è quello ravvicinato...
-            else
-            {
-                //Se la distanza non è abbastanza per sparare continua a muoversi nella direzione del player.
-                if (Vector3.Distance(transform.position, player.transform.position) > shootRange)
-                {
-                    //transform.position = Vector3.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
-                    rb.velocity = (player.transform.position - transform.position).normalized * speed * 50 * Time.deltaTime;
-                }
-                //Se può sparargli
-                else
-                {
-                    //Si ferma
-                    rb.velocity = Vector3.zero;
-
-                    //Spara al player
-                    //Shoot();
-                }
-            }
+            rb.velocity = (player.transform.position - transform.position).normalized * speed * 100 * Time.deltaTime;
         }
         //Se il giocatore non è spottato...
         else
