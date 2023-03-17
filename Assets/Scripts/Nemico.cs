@@ -120,7 +120,6 @@ public class Nemico : MonoBehaviour
                         contrario = !contrario;
                     }
                 }
-
                 indexApp = index;
             }
             else
@@ -235,7 +234,6 @@ public class Nemico : MonoBehaviour
         Vector3 leftRayDirection = leftRayRotation * transform.forward;
         Vector3 rightRayDirection = rightRayRotation * transform.forward;
 
-
         if (player != null && Detection())
             Gizmos.color = Color.green;
         else
@@ -244,5 +242,14 @@ public class Nemico : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, hearRange);
         Gizmos.DrawRay(transform.position, leftRayDirection * visionRange);
         Gizmos.DrawRay(transform.position, rightRayDirection * visionRange);
+
+        for(int i = 0; i < defaultPath.Count - 1; i++)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(defaultPath[i].position, defaultPath[i + 1].position - defaultPath[i].position);
+        }
+
+        //Direzione = B - A
+        //A = B - Direzione
     }
 }
