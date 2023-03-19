@@ -43,7 +43,7 @@ public class Nemico : MonoBehaviour
 
     //Componenti nemico che ci servono
     private Rigidbody rb;
-    private bool can_move = true; 
+    private bool can_move; 
 
 
     // Start is called before the first frame update
@@ -51,6 +51,7 @@ public class Nemico : MonoBehaviour
     {
         player = GameObject.FindObjectOfType<Player_Movement>().gameObject;
         rb = GetComponent<Rigidbody>();
+        can_move = true;
     }
 
     // Update is called once per frame
@@ -58,6 +59,8 @@ public class Nemico : MonoBehaviour
     {
         if(can_move)
             EnemyMovement(Detection());
+
+        Debug.Log(Detection());
     }
 
     void EnemyMovement(bool player_spotted)
@@ -65,11 +68,13 @@ public class Nemico : MonoBehaviour
         //Se il giocatore è spottato...
         if (player_spotted)
         {
+            //Fissa il player in modo inquietante
+            transform.LookAt(player.transform.position);
+
+
             if(!coroutineRunning)
                 StartCoroutine(CreateComeBackPath());
             
-            //Fissa il player in modo inquietante
-            transform.LookAt(player.transform.position);
 
             /* Varie opzioni di movimento 
              * Se uso la posizione trapassa i muri
@@ -79,7 +84,7 @@ public class Nemico : MonoBehaviour
              * Velocity se ne frega di qualsiasi altra forza applicata e lo muove verso il player.
              */
 
-            rb.velocity = (player.transform.position - transform.position).normalized * speed * 500 * Time.deltaTime;
+            rb.velocity = (player.transform.position - transform.position).normalized * speed * 100 * Time.deltaTime;
         }
         //Se il giocatore non è spottato...
         else
@@ -171,21 +176,30 @@ public class Nemico : MonoBehaviour
         StopCoroutine(CreateComeBackPath());
     }
 
-
     //Funzione che serve al nemico per trovare il giocatore.
     bool Detection()
     {
         //Il vettore che ci da la direzione da questo nemico al player.
         Vector3 directionToPlayer = player.transform.position - transform.position;
 
+        //Velocità del giocatore.
+        var playerCurrentSpeed = player.GetComponent<Rigidbody>().velocity.magnitude;
+
+        var calcoloRumore = ((playerCurrentSpeed / 1.8f) / Vector3.Distance(transform.position, player.transform.position) * hearRange * 2);
+
+        //Debug.Log(calcoloRumore);
+
         //Se il giocatore non è troppo distante...
-        if (Vector3.Distance(transform.position, player.transform.position) <= visionRange && Vector3.Distance(transform.position, player.transform.position) /* - rumore prodotto dal player */ <= hearRange)
+        if (Vector3.Distance(transform.position, player.transform.position) <= visionRange
+            || calcoloRumore >= hearRange || Vector3.Distance(transform.position, player.transform.position) <= hearRange / 2)
         {
+
+
             //...e si trova nell'angolo di visione del nemico...
-            if (Vector3.Angle(transform.forward, directionToPlayer) <= angleRange || Vector3.Distance(transform.position, player.transform.position) /* - rumore prodotto dal player */ <= hearRange)
+            if (Vector3.Angle(transform.forward, directionToPlayer) <= angleRange || calcoloRumore >= hearRange || Vector3.Distance(transform.position, player.transform.position) <= hearRange / 2)
             {
                 //Il nemico ha una visione sul player non bloccata da enviroment
-                if(Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hitInfo, visionRange, lineOfSight) && hitInfo.transform.CompareTag("Player"))
+                if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hitInfo, hearRange, lineOfSight) && hitInfo.transform.CompareTag("Player"))
                 {
                     Debug.DrawRay(transform.position, directionToPlayer, Color.green);
                     return true;
