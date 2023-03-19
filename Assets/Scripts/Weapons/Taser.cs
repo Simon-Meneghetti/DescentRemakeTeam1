@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+    public enum TypeOfObject
+    {
+        FuseBox,
+        Enemy
+    }
 
 public class Taser : MonoBehaviour
 {
@@ -8,13 +13,18 @@ public class Taser : MonoBehaviour
     [HideInInspector] public bool colpisci;
     public Transform player;
     public float radius;
+    [SerializeField] public TypeOfObject type;
     UIManager UM;
     Muzzle m;
+    Nemico n;
+    OpenDoor oD;
 
     private void Start()
     {
         UM = FindObjectOfType<UIManager>();
         m = FindObjectOfType<Muzzle>();
+        n = FindObjectOfType<Nemico>();
+        oD = FindObjectOfType<OpenDoor>();
     }
     void Update()
     {
@@ -45,9 +55,16 @@ public class Taser : MonoBehaviour
             //Debug.Log("Distance: " + d);
             if (d <= radius)
             {
-                Debug.LogWarning("Zot!");
+                if (n != null && type == TypeOfObject.Enemy)
+                {
+                    StartCoroutine(n.StunTime(2));
+                    Debug.LogWarning("Zot!");
+                }
+                else if(oD!=null && type == TypeOfObject.FuseBox)
+                {
+                    oD.Opening();
+                }
             }
-
         }
     }
 }

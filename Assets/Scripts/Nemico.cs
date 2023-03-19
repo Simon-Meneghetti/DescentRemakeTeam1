@@ -214,7 +214,7 @@ public class Nemico : MonoBehaviour
         }
     }
 
-    IEnumerator StunTime(float time)
+    public IEnumerator StunTime(float time)
     {
         rb.velocity = Vector3.zero;
         can_move = false;
