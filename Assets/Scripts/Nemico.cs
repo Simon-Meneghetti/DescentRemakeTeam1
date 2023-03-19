@@ -68,6 +68,7 @@ public class Nemico : MonoBehaviour
         //Se il giocatore è spottato...
         if (player_spotted)
         {
+
             //Fissa il player in modo inquietante
             transform.LookAt(player.transform.position);
 
@@ -90,6 +91,7 @@ public class Nemico : MonoBehaviour
         else
         {
             coroutineRunning = false;
+
             //Torna a fissare il prossimo punto in cui dovrà andare
             //Si muove dove dovrà andare
             //rb.AddForce((player.transform.position - transform.position).normalized * speed * Time.deltaTime);
@@ -98,7 +100,7 @@ public class Nemico : MonoBehaviour
             index = indexApp;
 
             //Se il comeBackPath è vuoto...
-            if (comeBackPath.Count <= 0)
+            if (comeBackPath.Count <= 0 && defaultPath.Count > 0)
             {
                 //Guarda la direzione in cui deve andare
                 transform.LookAt(defaultPath[index]);
@@ -127,7 +129,7 @@ public class Nemico : MonoBehaviour
                 }
                 indexApp = index;
             }
-            else
+            else if(comeBackPath.Count > 0)
             {
                 //Partiamo dall'ultima posizione creata
                 index = comeBackPath.Count - 1;
@@ -149,12 +151,6 @@ public class Nemico : MonoBehaviour
                             transform.LookAt(comeBackPath[index]);
                         }
                     }
-                    //Se ha raggiunto la fine del percorso lo percorrerà al contrario.
-                    else
-                    {
-
-                    }
-
                 }
             }
         }
@@ -164,6 +160,8 @@ public class Nemico : MonoBehaviour
     {
         //La coroutine sta andando!
         coroutineRunning = true;
+
+        comeBackPath.Add(transform.position);
 
         while (coroutineRunning)
         {
