@@ -7,6 +7,7 @@ public class PlayerStats : MonoBehaviour
 {
     public float maxShield, maxO2;
     public float shield, oxigen;
+    public int numOfKeys;
 
     public Transform spawnPos;
 
@@ -50,7 +51,11 @@ public class PlayerStats : MonoBehaviour
             Destroy(other.gameObject);
             m.satchelCounter++;
         }
-
+        if(other.CompareTag("Key"))
+        {
+            numOfKeys++;
+            Destroy(other.gameObject);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {

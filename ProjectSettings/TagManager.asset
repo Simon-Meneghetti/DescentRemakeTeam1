@@ -8,6 +8,8 @@ TagManager:
   - O2Recharge
   - CollectibleSatchel
   - Enemy
+  - SingleDoor
+  - AccessDoor
   layers:
   - Default
   - TransparentFX
