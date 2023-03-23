@@ -15,17 +15,23 @@ public class UIManager : MonoBehaviour
     [Header("Tipo Menu")]
     public TipologiaMenu TipoMenu;
 
+    [Header("Bottoni")]
     [Header("Menu principale")]
+    //Bottoni
     [SerializeField] private Button PlayButton;
     [SerializeField] private Button SettingsButton;
     [SerializeField] private Button QuitButton;
+
+    [Header("Selezionabili")]
+    //Selezionabile
     [SerializeField] private Image HelpSelectable;
+    [SerializeField] private Image HelpSelectableSettings;
     private float HelpSelectableNextPosizion;
+
+    [Header("Descrizione")]
+    //Testi
     [SerializeField] private Text Descrizione;
-    [SerializeField] private string DescrizionePlay;
-    [SerializeField] private string DescrizioneSettings;
-    [SerializeField] private string DescrizioneQuit;
-    private GameObject currentSelected;
+
 
     [Header("In Game UI")]
     public GameObject TaserPanel;
@@ -75,26 +81,24 @@ public class UIManager : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject)
             HelpSelectableNextPosizion = EventSystem.current.currentSelectedGameObject.transform.position.y;
 
-        HelpSelectable.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
+        if(!HelpSelectableSettings.IsActive())
+            HelpSelectable.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
+        else
+            HelpSelectableSettings.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
 
-        if (EventSystem.current.currentSelectedGameObject == PlayButton.gameObject && currentSelected != EventSystem.current.currentSelectedGameObject)
-        {
-            Descrizione.DOText(DescrizionePlay.ToUpper(), 0.15f, true, ScrambleMode.All);
-        }
-        else if (EventSystem.current.currentSelectedGameObject == SettingsButton.gameObject && currentSelected != EventSystem.current.currentSelectedGameObject)
-        {
-            Descrizione.DOText(DescrizioneSettings.ToUpper(), 0.15f, true, ScrambleMode.All);
-        }
-        else if (EventSystem.current.currentSelectedGameObject == QuitButton.gameObject && currentSelected != EventSystem.current.currentSelectedGameObject)
-        {
-            Descrizione.DOText(DescrizioneQuit.ToUpper(), 0.15f, true, ScrambleMode.All);
-        }
-
-        currentSelected = EventSystem.current.currentSelectedGameObject;
     }
 
     public void LoadGame()
     {
         SceneManager.LoadScene(0);
+    }
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void ChangeDescription(string newText)
+    {
+        Descrizione.DOText(newText.ToUpper(), 0.15f, true, ScrambleMode.All);
     }
 }
