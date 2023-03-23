@@ -33,6 +33,8 @@ public class Player_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        facing_directionZ = Quaternion.identity;
     }
 
     // Update is called once per frame
