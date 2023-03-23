@@ -59,8 +59,6 @@ public class Nemico : MonoBehaviour
     {
         if(can_move)
             EnemyMovement(Detection());
-
-        Debug.Log(Detection());
     }
 
     void EnemyMovement(bool player_spotted)

@@ -96,7 +96,7 @@ public class Player_Movement : MonoBehaviour
     {
         
         facing_directionZ = Quaternion.AngleAxis(ctx.ReadValue<float>() * velocita_rotazione * Time.deltaTime, Vector3.forward);
-        
+
         //Se sta premendo il tasto...
         if (ctx.performed)
         {

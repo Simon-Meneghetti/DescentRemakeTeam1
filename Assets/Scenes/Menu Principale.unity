@@ -2364,9 +2364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TipoMenu: 0
-  PlayButton: {fileID: 791264491}
-  SettingsButton: {fileID: 1926267319}
-  QuitButton: {fileID: 331510353}
+  StarterButton: {fileID: 791264491}
   HelpSelectable: {fileID: 471981166}
   HelpSelectableSettings: {fileID: 266223449}
   Descrizione: {fileID: 605994675}
@@ -2753,7 +2751,7 @@ MonoBehaviour:
           m_MethodName: set_colorGradientPreset
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgument: {fileID: 11400000, guid: 8b56d3698d3987448a36938ad0c613a1, type: 2}
             m_ObjectArgumentAssemblyTypeName: TMPro.TMP_ColorGradient, Unity.TextMeshPro
             m_IntArgument: 0
             m_FloatArgument: 0
