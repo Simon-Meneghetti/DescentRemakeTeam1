@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.2
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.20150918, g: 0.22699493, b: 0.26709065, a: 0.2}
+  m_IndirectSpecularColor: {r: 0.20150909, g: 0.22699484, b: 0.26709044, a: 0.2}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -247,6 +247,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8074e16b83aea5c45a1875e4428153ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TipoMenu: 1
+  PlayButton: {fileID: 0}
+  SettingsButton: {fileID: 0}
+  QuitButton: {fileID: 0}
+  HelpSelectable: {fileID: 0}
+  Descrizione: {fileID: 0}
+  DescrizionePlay: 
+  DescrizioneSettings: 
+  DescrizioneQuit: 
   TaserPanel: {fileID: 1030683985}
   StaminaBar: {fileID: 1890634362}
   StaminaBar1: {fileID: 197452411}
@@ -900,7 +909,7 @@ MonoBehaviour:
   velocita_movimento: 5
   velocita_decelerazione: 2
   velocita_massima: 5
-  velocita_rotazione: 100
+  velocita_rotazione: 50
   camera_sensitivity: 5
 --- !u!1 &331850051
 GameObject:
@@ -1147,7 +1156,7 @@ PrefabInstance:
       objectReference: {fileID: 303255524}
     - target: {fileID: 1803051688821783166, guid: 58f617b61f0c373419fc229d4e3fef60, type: 3}
       propertyPath: visionRange
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1803051688821783166, guid: 58f617b61f0c373419fc229d4e3fef60, type: 3}
       propertyPath: defaultPath.Array.data[0]

@@ -14,9 +14,9 @@ public class Player_Movement : MonoBehaviour
     private Vector3 mov_direction;
     private Quaternion facing_directionX;
     private Quaternion facing_directionY;
+    private Quaternion facing_directionZ;
 
     //Se 1 ruota a destra se -1 a sinistra
-    private float rotate_direction;
     private bool want_rotate = false;
 
     [Header("Speed Settings")]
@@ -63,26 +63,19 @@ public class Player_Movement : MonoBehaviour
 
         //Ruotare sull'asse Z
         if (want_rotate)
-        {
-            rb.AddTorque(transform.forward * rotate_direction * velocita_rotazione * Time.deltaTime);
-
+        { 
             rb.constraints = RigidbodyConstraints.None;
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
         }
         else
         {
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-            rotate_direction = 0;
         }
 
         //Ruotare sull'asse X e Y
-        Quaternion rotation_target = facing_directionX * facing_directionY;
-
-        //transform.localRotation = Quaternion.RotateTowards(transform.localRotation, transform.localRotation * facing_directionX, camera_sensitivity * Time.deltaTime);
+        Quaternion rotation_target = facing_directionX * facing_directionY * facing_directionZ;
 
         transform.localRotation *= rotation_target;
-
     }
 
     public void Raccolta_Input_Movimento(InputAction.CallbackContext ctx)
@@ -99,8 +92,9 @@ public class Player_Movement : MonoBehaviour
 
     public void Raccolta_Input_Ruotarsi(InputAction.CallbackContext ctx)
     {
-        rotate_direction = ctx.ReadValue<float>();
-
+        
+        facing_directionZ = Quaternion.AngleAxis(ctx.ReadValue<float>() * velocita_rotazione * Time.deltaTime, Vector3.forward);
+        
         //Se sta premendo il tasto...
         if (ctx.performed)
         {
