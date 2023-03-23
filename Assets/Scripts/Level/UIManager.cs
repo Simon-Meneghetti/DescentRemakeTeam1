@@ -69,26 +69,6 @@ public class UIManager : MonoBehaviour
             ShieldBar.fillAmount = pS.shield / pS.maxShield;
             Counter.text = m.satchelCounter.ToString("00");
         }
-        else
-        {
-            AnimazioniMenuPrincipale();
-        }
-    }
-
-    void AnimazioniMenuPrincipale()
-    {
-        //Se c'è un oggetto selezionato...
-        if (EventSystem.current.currentSelectedGameObject)
-            //La sua Y sarà la destinazione del nostro HelpSelectable
-            HelpSelectableNextPosizion = EventSystem.current.currentSelectedGameObject.transform.position.y;
-
-        //Se è attivo il selectable delle impostazioni allora significa che è nelle impostazioni e muoviamo quello
-        /*if(!HelpSelectableSettings.IsActive())
-            HelpSelectable.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
-        //Sennò muoviamo quello del menu generale.
-        else
-            HelpSelectableSettings.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
-        */
     }
 
     //Carica il gioco
@@ -106,6 +86,19 @@ public class UIManager : MonoBehaviour
     //Richiamato per cambiare la descrizione quando si trova su un'opzione diversa.
     public void ChangeDescription(string newText)
     {
+        //Animazione per scrivere
         Descrizione.DOText(newText.ToUpper(), 0.15f, true, ScrambleMode.All);
+
+        //Se c'è un oggetto selezionato...
+        if (EventSystem.current.currentSelectedGameObject)
+            //La sua Y sarà la destinazione del nostro HelpSelectable
+            HelpSelectableNextPosizion = EventSystem.current.currentSelectedGameObject.transform.position.y;
+
+        //Se è attivo il selectable delle impostazioni allora significa che è nelle impostazioni e muoviamo quello
+        if (!HelpSelectableSettings.IsActive())
+            HelpSelectable.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
+        //Sennò muoviamo quello del menu generale.
+        else
+            HelpSelectableSettings.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
     }
 }
