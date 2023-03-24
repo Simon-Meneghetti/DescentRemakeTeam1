@@ -11,7 +11,13 @@ public class FuseBox : MonoBehaviour
     {
         foreach (GameObject door in doorToOpen)
         {
-            door.GetComponentInChildren<OpenDoor>().enabled = true;
+            //Simon: modificato codice per non dare errori e attivare il GO
+            door.gameObject.SetActive(true);
+            OpenDoor openDoor = door.GetComponentInChildren<OpenDoor>();
+            if (openDoor != null)
+            {
+                openDoor.enabled = true;
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ public class OpenDoor : MonoBehaviour
    //quando la fusebox lo attiverà, la porta di sinistra andrà a sinistra in quattro secondi, mentre la destra andrà a destra e non sarà più possibile aprire/chiudere le porte in questione
     void Start()
     {
-            LeftDoor.transform.DOMove(LeftDoor.transform.position + Vector3.left * 2, 4);
-            RightDoor.transform.DOMove(RightDoor.transform.position + Vector3.right * 2, 4);
+            LeftDoor.transform.DOMove(LeftDoor.transform.position - transform.right * 2, 4);
+            RightDoor.transform.DOMove(RightDoor.transform.position + transform.right * 2, 4);
     }
 }
