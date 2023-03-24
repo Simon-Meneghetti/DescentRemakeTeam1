@@ -26,7 +26,8 @@ public class UIManager : MonoBehaviour
     //Selezionabile
     [SerializeField] private Image HelpSelectable;
     [SerializeField] private Image HelpSelectableSettings;
-    private float HelpSelectableNextPosizion;
+    [SerializeField] private Image HelpSelectableMenuFinale;
+    private Vector3 HelpSelectableNextPosition;
 
     [Header("Descrizione")]
     //Testi
@@ -51,17 +52,6 @@ public class UIManager : MonoBehaviour
     PlayerStats pS;
     
 
-
-    private void OnEnable()
-    {
-        //GameManager.onPause += OnPause;
-    }
-
-    private void OnDisable()
-    {
-        //GameManager.onPause -= OnPause;
-    }
-
     void Start()
     {
         //Se riesce a trovare quello che gli serve allora non è nel menu principale
@@ -69,10 +59,6 @@ public class UIManager : MonoBehaviour
         {
             m = FindObjectOfType<Muzzle>();
             pS = FindObjectOfType<PlayerStats>();
-        }
-        else
-        {
-            StarterButton.Select();
         }
     }
 
@@ -88,10 +74,17 @@ public class UIManager : MonoBehaviour
             ShieldBar.fillAmount = pS.shield / pS.maxShield;
             Counter.text = m.satchelCounter.ToString("00");
         }
+
+        if (HelpSelectableMenuFinale != null && HelpSelectableMenuFinale.IsActive())
+            HelpSelectable = HelpSelectableMenuFinale;
     }
 
     //Carica il gioco
     public void LoadGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void LoadMenu()
     {
         SceneManager.LoadScene(0);
     }
@@ -110,14 +103,18 @@ public class UIManager : MonoBehaviour
 
         //Se c'è un oggetto selezionato...
         if (EventSystem.current.currentSelectedGameObject)
+        {
             //La sua Y sarà la destinazione del nostro HelpSelectable
-            HelpSelectableNextPosizion = EventSystem.current.currentSelectedGameObject.transform.position.y;
+            var transformSelezionato = EventSystem.current.currentSelectedGameObject.transform;
+
+            HelpSelectableNextPosition = new Vector2(transformSelezionato.position.x - transformSelezionato.GetComponent<RectTransform>().rect.width / 1.8f, transformSelezionato.position.y);
+        }
 
         //Se è attivo il selectable delle impostazioni allora significa che è nelle impostazioni e muoviamo quello
         if (!HelpSelectableSettings.IsActive())
-            HelpSelectable.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true).SetUpdate(true);
+            HelpSelectable.transform.DOMove(HelpSelectableNextPosition, 0.1f, true).SetUpdate(true);
         //Sennò muoviamo quello del menu generale.
         else
-            HelpSelectableSettings.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true).SetUpdate(true);
+            HelpSelectableSettings.transform.DOMoveY(HelpSelectableNextPosition.y, 0.1f, true).SetUpdate(true);
     }
 }
