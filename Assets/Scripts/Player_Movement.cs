@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class Player_Movement : MonoBehaviour
@@ -22,7 +23,7 @@ public class Player_Movement : MonoBehaviour
     [Header("Speed Settings")]
     [SerializeField, Range(0, 100)] private float velocita_movimento;
     [SerializeField, Range(0, 100)] private float velocita_decelerazione;
-    [SerializeField, Range(0, 100)] private float velocita_massima;
+    [Range(0, 100)] public float velocita_massima;
 
     [SerializeField, Range(0, 100)] private float velocita_rotazione;
     [SerializeField, Range(0, 100)] private float camera_sensitivity;
@@ -66,7 +67,6 @@ public class Player_Movement : MonoBehaviour
         //Ruotare sull'asse Z
         if (want_rotate)
         { 
-            rb.constraints = RigidbodyConstraints.None;
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
         }
         else
@@ -78,6 +78,11 @@ public class Player_Movement : MonoBehaviour
         Quaternion rotation_target = facing_directionX * facing_directionY * facing_directionZ;
 
         transform.localRotation *= rotation_target;
+    }
+
+    public void ChangeSensibility(Slider slider)
+    {
+        camera_sensitivity = slider.value;
     }
 
     public void Raccolta_Input_Movimento(InputAction.CallbackContext ctx)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,18 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    public static Action onPause;
+
+    public static GameManager instance;
+
+    private bool justOnce;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+        if(instance == null)
+        {
+            instance = this;
+        }
     }
 
     // Update is called once per frame
@@ -19,12 +28,28 @@ public class GameManager : MonoBehaviour
 
     public void Raccolta_Input_Pausa(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.canceled)
         {
-            if(Time.timeScale != 0)
-                Time.timeScale = 0;
+            if (justOnce)
+            {
+                justOnce = false;
+            }
             else
-                Time.timeScale = 1;
+            {
+                Time.timeScale = 0;
+                FindObjectOfType<UIManager>().Menu_game_UI.gameObject.SetActive(false);
+                FindObjectOfType<UIManager>().Menu_pausa.gameObject.SetActive(true);
+            }
         }
     }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+
+        justOnce = true;
+
+        FindObjectOfType<UIManager>().Menu_game_UI.gameObject.SetActive(true);
+        FindObjectOfType<UIManager>().Menu_pausa.gameObject.SetActive(false);
+    }    
 }

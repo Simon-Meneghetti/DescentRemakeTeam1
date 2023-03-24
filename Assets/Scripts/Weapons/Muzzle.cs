@@ -28,7 +28,8 @@ public class Muzzle : MonoBehaviour
 
     //Sachel
     public int satchelCounter;
-    private BulletType satchel;
+    [Range(0, 10)]public float satchelForce;
+    private Satchel satchel;
 
     void Start()
     {
@@ -83,7 +84,9 @@ public class Muzzle : MonoBehaviour
         if (ctx.performed && satchel == null && satchelCounter>0)
         {
             //istanzia la carica satchel e sistema la rotazione
-            satchel = Instantiate(satchelToSpawn, spawnPosition, Quaternion.identity).GetComponent<BulletType>();
+            satchel = Instantiate(satchelToSpawn, spawnPosition, Quaternion.identity).GetComponent<Satchel>();
+
+            satchel.shootForce = satchelForce;
 
             satchel.transform.rotation = gameObject.transform.rotation;
 
@@ -91,7 +94,7 @@ public class Muzzle : MonoBehaviour
 
             spawnTimer = 0;
         }
-        else if (ctx.performed && satchel != null && ctx.performed && satchel.colpito)
+        else if (ctx.performed && satchel.attaccata)
         {
             satchel.EsplosioneSatchel();
         }

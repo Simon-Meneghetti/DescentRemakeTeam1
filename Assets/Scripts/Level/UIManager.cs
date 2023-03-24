@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
+using UnityEditor.Timeline.Actions;
 
 public class UIManager : MonoBehaviour
 {
@@ -31,8 +32,14 @@ public class UIManager : MonoBehaviour
     //Testi
     [SerializeField] private Text Descrizione;
 
+    //////////////////////////////////////////////
 
+    [Header("Menu pausa")]
+    public GameObject Menu_pausa;
+
+    //////////////////////////////////////////////
     [Header("In Game UI")]
+    public GameObject Menu_game_UI;
     public GameObject TaserPanel;
     public Image StaminaBar;
     public Image StaminaBar1;
@@ -42,6 +49,18 @@ public class UIManager : MonoBehaviour
 
     Muzzle m;
     PlayerStats pS;
+    
+
+
+    private void OnEnable()
+    {
+        //GameManager.onPause += OnPause;
+    }
+
+    private void OnDisable()
+    {
+        //GameManager.onPause -= OnPause;
+    }
 
     void Start()
     {
@@ -87,7 +106,7 @@ public class UIManager : MonoBehaviour
     public void ChangeDescription(string newText)
     {
         //Animazione per scrivere
-        Descrizione.DOText(newText.ToUpper(), 0.15f, true, ScrambleMode.All);
+        Descrizione.DOText(newText.ToUpper(), 0.15f, true, ScrambleMode.All).SetUpdate(true);
 
         //Se c'è un oggetto selezionato...
         if (EventSystem.current.currentSelectedGameObject)
@@ -96,9 +115,9 @@ public class UIManager : MonoBehaviour
 
         //Se è attivo il selectable delle impostazioni allora significa che è nelle impostazioni e muoviamo quello
         if (!HelpSelectableSettings.IsActive())
-            HelpSelectable.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
+            HelpSelectable.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true).SetUpdate(true);
         //Sennò muoviamo quello del menu generale.
         else
-            HelpSelectableSettings.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true);
+            HelpSelectableSettings.transform.DOMoveY(HelpSelectableNextPosizion, 0.1f, true).SetUpdate(true);
     }
 }

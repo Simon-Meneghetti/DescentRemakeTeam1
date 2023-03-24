@@ -2368,6 +2368,8 @@ MonoBehaviour:
   HelpSelectable: {fileID: 471981166}
   HelpSelectableSettings: {fileID: 266223449}
   Descrizione: {fileID: 605994675}
+  Menu_pausa: {fileID: 0}
+  Menu_game_UI: {fileID: 0}
   TaserPanel: {fileID: 0}
   StaminaBar: {fileID: 0}
   StaminaBar1: {fileID: 0}
