@@ -51,11 +51,12 @@ public class PlayerStats : MonoBehaviour
             Destroy(other.gameObject);
             m.satchelCounter++;
         }
-        if(other.CompareTag("Key"))
-        {
-            numOfKeys++;
-            Destroy(other.gameObject);
-        }
+        //Simon; codice che non verra utilizato ammeno che non riciclato con Black box
+        //if(other.CompareTag("Key"))
+        //{
+        //    numOfKeys++;
+        //    Destroy(other.gameObject);
+        //}
     }
     private void OnCollisionEnter(Collision collision)
     {
