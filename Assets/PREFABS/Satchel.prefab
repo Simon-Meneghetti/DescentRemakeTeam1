@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1223733732439103430}
   m_Layer: 0
   m_Name: Satchel
-  m_TagString: Untagged
+  m_TagString: Arpione
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,8 +77,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootForce: 5
   attaccata: 0
-  raggio_satchel: 25
-  quantita_danno: 0
+  raggio_satchel: 5
+  quantita_danno: 50
   durata_satchel: 3
   contatto:
     serializedVersion: 2
