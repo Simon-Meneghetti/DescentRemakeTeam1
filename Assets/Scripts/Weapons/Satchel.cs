@@ -66,12 +66,10 @@ public class Satchel : MonoBehaviour
             {
                 collider.GetComponent<PlayerStats>().shield -= quantita_danno;
             }
-            /*Se colpisce il nemico
-            else if(collider.GetComponent<Nemico>() != null
+            else if(collider.GetComponent<Nemico>() != null)
             {
-                collider.GetComponent<PlayerStats>().vitanemico -= quantita_danno;
+                collider.GetComponent<Nemico>().vita -= quantita_danno;
             }
-            */
         }
 
         //Boom!

@@ -612,6 +612,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1803051688821783166, guid: 58f617b61f0c373419fc229d4e3fef60, type: 3}
+      propertyPath: vita
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803051688821783166, guid: 58f617b61f0c373419fc229d4e3fef60, type: 3}
       propertyPath: hearRange
       value: 6
       objectReference: {fileID: 0}
@@ -1119,8 +1123,8 @@ Transform:
   m_LocalPosition: {x: 0.001, y: 4.552, z: 13.541}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1033575667}
   - {fileID: 1017002730}
+  - {fileID: 1033575667}
   - {fileID: 1813283361}
   - {fileID: 1589369861}
   m_Father: {fileID: 0}
@@ -1297,6 +1301,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 54c8a3e8-3248-4963-8d65-a57bd7c75e42
     m_ActionName: Giocatore/Pausa[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 303255527}
+        m_TargetAssemblyTypeName: Player_Movement, Assembly-CSharp
+        m_MethodName: Raccolta_Input_Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 752d933d-8ab1-45d6-9fe2-58ec968ddf45
+    m_ActionName: Giocatore/Dash[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Giocatore
@@ -1314,7 +1334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66775fd485d6244e83b1491af49f796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  want_dash: 0
   velocita_movimento: 5
+  velocita_boost: 100
   velocita_decelerazione: 2
   velocita_massima: 5
   velocita_rotazione: 50
@@ -1962,6 +1984,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 303255524}
     - target: {fileID: 1803051688821783166, guid: 58f617b61f0c373419fc229d4e3fef60, type: 3}
+      propertyPath: vita
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803051688821783166, guid: 58f617b61f0c373419fc229d4e3fef60, type: 3}
       propertyPath: visionRange
       value: 8
       objectReference: {fileID: 0}
@@ -2423,8 +2449,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -590, y: -196}
-  m_SizeDelta: {x: 197.1008, y: 50}
+  m_AnchoredPosition: {x: -590.6, y: -196}
+  m_SizeDelta: {x: 168.762, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &518872154
 GameObject:
@@ -2835,7 +2861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &531277868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4569,7 +4595,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 303255524}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1017002731
 MonoBehaviour:
@@ -4598,7 +4624,7 @@ MonoBehaviour:
   taser: 0
   ricarica: 0
   satchelCounter: 99
-  satchelForce: 4.17
+  satchelForce: 7
 --- !u!1 &1024756648
 GameObject:
   m_ObjectHideFlags: 0
@@ -4906,7 +4932,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 303255524}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1057536408 stripped
 Transform:
@@ -6330,8 +6356,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 591, y: -196}
-  m_SizeDelta: {x: 144.868, y: 50}
+  m_AnchoredPosition: {x: 590.1, y: -196}
+  m_SizeDelta: {x: 113.7927, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1558004073
 MonoBehaviour:

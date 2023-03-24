@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -19,9 +20,12 @@ public class Player_Movement : MonoBehaviour
 
     //Se 1 ruota a destra se -1 a sinistra
     private bool want_rotate = false;
+    public bool want_dash = false;
 
     [Header("Speed Settings")]
     [SerializeField, Range(0, 100)] private float velocita_movimento;
+    private float velocita_movimento_appoggio;
+    [SerializeField, Range(0, 100)] private float velocita_boost;
     [SerializeField, Range(0, 100)] private float velocita_decelerazione;
     [Range(0, 100)] public float velocita_massima;
 
@@ -36,6 +40,8 @@ public class Player_Movement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         facing_directionZ = Quaternion.identity;
+
+        velocita_movimento_appoggio = velocita_movimento;
     }
 
     // Update is called once per frame
@@ -77,7 +83,19 @@ public class Player_Movement : MonoBehaviour
         //Ruotare sull'asse X e Y
         Quaternion rotation_target = facing_directionX * facing_directionY * facing_directionZ;
 
+        //Applicazione rotazione
         transform.localRotation *= rotation_target;
+
+        //Sta dashando?
+        if (mov_direction.z > 0 && want_dash)
+        {
+            velocita_movimento = velocita_boost;
+        }
+        else if (mov_direction.z <= 0 || !want_dash)
+        {
+            velocita_movimento = velocita_movimento_appoggio;
+            want_dash = false;
+        }
     }
 
     public void ChangeSensibility(Slider slider)
@@ -111,6 +129,17 @@ public class Player_Movement : MonoBehaviour
         else if (ctx.canceled)
         {
             want_rotate = false;
+        }
+    }
+
+    public void Raccolta_Input_Dash(InputAction.CallbackContext ctx) 
+    {
+        if (ctx.performed)
+        {
+            if(want_dash)
+                want_dash = false;
+            else
+                want_dash = true;
         }
     }
 }

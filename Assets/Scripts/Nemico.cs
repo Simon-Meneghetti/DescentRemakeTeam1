@@ -36,6 +36,7 @@ public class Nemico : MonoBehaviour
     public LayerMask lineOfSight;
 
     [Header("Stats")]
+    public float vita;
     public float speed;
     public float damage;
     public float knockback;
@@ -59,6 +60,11 @@ public class Nemico : MonoBehaviour
     {
         if(can_move)
             EnemyMovement(Detection());
+
+        if(vita <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void EnemyMovement(bool player_spotted)
