@@ -72,7 +72,7 @@ public class Muzzle : MonoBehaviour
 
             spawnTimer = 0;
 
-            proiettile_spawnato.GetComponent<BulletType>().arpione = true;
+            proiettile_spawnato.GetComponent<Arpione>().arpione = true;
 
             harpoon = false;
         }

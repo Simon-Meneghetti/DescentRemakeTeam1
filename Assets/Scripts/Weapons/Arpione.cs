@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-public class BulletType : MonoBehaviour
+public class Arpione : MonoBehaviour
 {
     [SerializeField] public int speed;
     [HideInInspector] public bool colpito;
@@ -41,7 +41,7 @@ public class BulletType : MonoBehaviour
 
                 gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, posizione_giocatore, speed * Time.deltaTime);
                 
-                gameObject.transform.rotation = gameObject.transform.rotation; //?
+                gameObject.transform.rotation = m.gameObject.transform.rotation; //?
             }
         }
         //Se non è un arpione sarà una satchel e se è attaccata dopo un tot esplode.
@@ -98,7 +98,7 @@ public class BulletType : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision coll)
     {
         if (arpione == true)
         {
@@ -106,8 +106,9 @@ public class BulletType : MonoBehaviour
 
             //In teoria funziona ma non si sa se funziona.
             gameObject.transform.Translate(Vector3.forward * 0 * Time.deltaTime);
-
-            if (other.CompareTag("Player"))
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            if (coll.collider.CompareTag("Player"))
             {
                 arpione = false;
 
@@ -116,16 +117,11 @@ public class BulletType : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
         //Togliere questo bool se non sono entrambi trigger
         if(!arpione)
         {
             //Se non è il giocatore (Siccome non si può incollare al giocatore)
-            if (!other.transform.CompareTag("Player") && !colpito)
+            if (!coll.collider.transform.CompareTag("Player") && !colpito)
             {
                 //Ha colpito qualcosa
                 colpito = true;
@@ -134,7 +130,7 @@ public class BulletType : MonoBehaviour
                 Vector3 sizeAppoggio = transform.localScale;
                 Vector3 rotationAppoggio = transform.localEulerAngles;
                 //Ne è diventato figlio (seguirà questa cosa)
-                transform.SetParent(other.transform);
+                transform.SetParent(coll.collider.transform);
                 //Resettiamo la scale
                 transform.localScale = new Vector3(sizeAppoggio.x / transform.parent.localScale.x, sizeAppoggio.y / transform.parent.localScale.y, sizeAppoggio.z / transform.parent.localScale.z);
                 //Se possibile sarebbe meglio trovare una rotazione a seconda del parent a cui si attacca
@@ -146,10 +142,15 @@ public class BulletType : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 rb.velocity = Vector3.zero;
             }
-            else if (other.transform.CompareTag("Player") && colpito)
+            else if (coll.collider.transform.CompareTag("Player") && colpito)
             {
                 Destroy(gameObject);
             }
         }
+        
     }
+
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //}
 }
