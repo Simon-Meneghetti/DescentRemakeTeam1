@@ -1014,7 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8074e16b83aea5c45a1875e4428153ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TipoMenu: 0
+  TipoMenu: 1
   StarterButton: {fileID: 849806205}
   HelpSelectable: {fileID: 243690568}
   HelpSelectableSettings: {fileID: 1628911636}

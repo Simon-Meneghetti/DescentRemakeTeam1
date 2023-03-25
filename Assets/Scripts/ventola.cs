@@ -30,7 +30,7 @@ public class ventola : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(Physics.SphereCast(transform.position - transform.right * 2, transform.localScale.y / 2, transform.right, out RaycastHit hit, distanza))
+        if(Physics.SphereCast(transform.position - transform.right * 2, transform.localScale.y / 2, transform.right, out RaycastHit hit, distanza, oggettiVentabili))
         {
             Gizmos.color = Color.green;
             Gizmos.DrawRay(transform.position - transform.right * 2, transform.right * hit.distance);

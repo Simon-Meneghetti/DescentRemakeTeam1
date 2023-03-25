@@ -25,8 +25,8 @@ public class OggettoRaccoglibile : MonoBehaviour
         {
             if (preso == true)
             {
-                Vector3 direction = m.gameObject.transform.position - gameObject.transform.position;
-                rb.AddForce(direction * Time.deltaTime * forzaTrainante * 50, ForceMode.Impulse);
+                Vector3 direction = (m.gameObject.transform.position - gameObject.transform.position).normalized;
+                rb.AddForce(direction * Time.deltaTime * forzaTrainante * 100, ForceMode.Impulse);
                 //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, m.gameObject.transform.position, speed * Time.deltaTime);
                 //rb.transform.rotation = m.gameObject.transform.rotation;
                 preso = false;
