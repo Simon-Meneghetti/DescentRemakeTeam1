@@ -9,7 +9,6 @@ public class Muzzle : MonoBehaviour
     [SerializeField] public GameObject arpioneToSpawn;
     [SerializeField] public GameObject satchelToSpawn;
 
-    [SerializeField] public float rate;
     [SerializeField] public float coolDown;
 
     [HideInInspector] public Vector3 spawnPosition;

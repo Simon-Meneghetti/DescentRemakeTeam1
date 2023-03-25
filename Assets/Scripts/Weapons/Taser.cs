@@ -18,14 +18,12 @@ public class Taser : MonoBehaviour
     UIManager UM;
     Muzzle m;
     Nemico n;
-    FuseBox fB;
 
     private void Start()
     {
         UM = FindObjectOfType<UIManager>();
         m = FindObjectOfType<Muzzle>();
         n = FindObjectOfType<Nemico>();
-        fB = FindObjectOfType<FuseBox>();
 
         player = FindObjectOfType<Player_Movement>().transform;
     }

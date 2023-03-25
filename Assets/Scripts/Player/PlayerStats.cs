@@ -7,7 +7,7 @@ public class PlayerStats : MonoBehaviour
 {
     public float maxShield, maxO2;
     public float shield, oxigen;
-    public int numOfKeys;
+    //public int numOfKeys;
 
     public Transform spawnPos;
 
@@ -51,7 +51,7 @@ public class PlayerStats : MonoBehaviour
             Destroy(other.gameObject);
             m.satchelCounter++;
         }
-        //Simon; codice che non verra utilizato ammeno che non riciclato con Black box
+        
         //if(other.CompareTag("Key"))
         //{
         //    numOfKeys++;

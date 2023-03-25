@@ -7,7 +7,7 @@ using UnityEngine;
 public class BulletType : MonoBehaviour
 {
     [SerializeField] public int speed;
-    public bool colpito;
+    [HideInInspector] public bool colpito;
 
     //Se arpione è vero è un arpione sennò è una satchel.
     [HideInInspector] public bool arpione;
