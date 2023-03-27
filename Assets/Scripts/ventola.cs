@@ -20,9 +20,10 @@ public class ventola : MonoBehaviour
     {
         if (Physics.SphereCast(transform.position - transform.right * 2, transform.localScale.y / 2, transform.right, out RaycastHit hit1, distanza, oggettiVentabili))
         {
-            Vector3 direzione = ((transform.position - transform.right) - hit1.transform.position).normalized;
+            if (hit1.transform.GetComponent<Nemico>())
+                hit1.transform.GetComponent<Nemico>().can_move = false;
 
-            //hit1.rigidbody.AddForce(direzione * wind_force * Time.deltaTime * 50, ForceMode.Acceleration);
+            Vector3 direzione = ((transform.position - transform.right) - hit1.transform.position).normalized;
 
             hit1.rigidbody.AddForce(direzione * wind_force * Time.deltaTime * 100, ForceMode.Acceleration);
         }
@@ -51,7 +52,7 @@ public class ventola : MonoBehaviour
         }
         else if (other.transform.CompareTag("Player"))
         {
-            other.transform.GetComponent<PlayerStats>().shield = 0;
+            other.transform.GetComponent<PlayerStats>().oxigen = 0.01f;
         }
         else if (other.transform.CompareTag("OggettoArpionabile"))
         {

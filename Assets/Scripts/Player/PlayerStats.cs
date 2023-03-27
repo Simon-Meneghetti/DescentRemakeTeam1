@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -74,8 +75,6 @@ public class PlayerStats : MonoBehaviour
     }
     void Death()
     {
-        gameObject.transform.position = spawnPos.position;
-        shield = maxShield;
-        oxigen = maxO2;
+        UIManager.instance.GameLost();
     }
 }

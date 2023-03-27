@@ -158,6 +158,7 @@ MonoBehaviour:
   lineOfSight:
     serializedVersion: 2
     m_Bits: 320
+  vita: 0
   speed: 5
   damage: 25
   knockback: 180

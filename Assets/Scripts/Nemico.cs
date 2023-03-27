@@ -44,7 +44,7 @@ public class Nemico : MonoBehaviour
 
     //Componenti nemico che ci servono
     private Rigidbody rb;
-    private bool can_move; 
+    [HideInInspector] public bool can_move; 
 
 
     // Start is called before the first frame update

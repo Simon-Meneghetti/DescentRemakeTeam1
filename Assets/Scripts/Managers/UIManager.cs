@@ -32,11 +32,19 @@ public class UIManager : MonoBehaviour
     [Header("Descrizione")]
     //Testi
     [SerializeField] private Text Descrizione;
+    [SerializeField] private Text MessaggioFinale;
+    [SerializeField] private string ScrittaVittoria;
+    [SerializeField] private string ScrittaSconfitta;
 
     //////////////////////////////////////////////
 
     [Header("Menu pausa")]
     public GameObject Menu_pausa;
+
+    //////////////////////////////////////////////
+
+    [Header("Schermata Caricamento")]
+    [SerializeField] private Animator Caricamento;
 
     //////////////////////////////////////////////
     [Header("In Game UI")]
@@ -53,7 +61,20 @@ public class UIManager : MonoBehaviour
     public Rigidbody target;
     Muzzle m;
     PlayerStats pS;
-    
+
+    ///////////////////////////////////////////////
+
+    public static UIManager instance;
+
+    void OnEnable()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    ///////////////////////////////////////////////
 
     void Start()
     {
@@ -63,8 +84,9 @@ public class UIManager : MonoBehaviour
             m = FindObjectOfType<Muzzle>();
             pS = FindObjectOfType<PlayerStats>();
         }
-    }
 
+        Caricamento.Play("LoadOut");
+    }
 
     void Update()
     {
@@ -84,20 +106,25 @@ public class UIManager : MonoBehaviour
             HelpSelectable = HelpSelectableMenuFinale;
     }
 
-    //Carica il gioco
-    public void LoadGame()
-    {
-        SceneManager.LoadScene(1);
-    }
-    public void LoadMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-
     //Esce dal gioco
     public void Quit()
     {
         Application.Quit();
+    }
+
+    //GameLost
+    public void GameLost()
+    {
+        MessaggioFinale.text = ScrittaSconfitta.ToUpper();
+        MessaggioFinale.transform.parent.gameObject.SetActive(true);
+    }
+
+    //GameWon
+    public void GameWon()
+    {
+        MessaggioFinale.text = ScrittaVittoria.ToUpper();
+        MessaggioFinale.transform.parent.gameObject.SetActive(true);
+
     }
 
     //Richiamato per cambiare la descrizione quando si trova su un'opzione diversa.

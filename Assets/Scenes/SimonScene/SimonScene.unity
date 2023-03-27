@@ -1027,7 +1027,11 @@ MonoBehaviour:
   StaminaBar1: {fileID: 197452411}
   O2Bar: {fileID: 2128859697}
   ShieldBar: {fileID: 167219494}
+  velocityBar: {fileID: 0}
   Counter: {fileID: 1614752199}
+  maxSpeed: 0
+  currentSpeed: 0
+  target: {fileID: 303255522}
 --- !u!4 &136209298
 Transform:
   m_ObjectHideFlags: 0
@@ -2809,6 +2813,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 54c8a3e8-3248-4963-8d65-a57bd7c75e42
     m_ActionName: Giocatore/Pausa[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 752d933d-8ab1-45d6-9fe2-58ec968ddf45
+    m_ActionName: Giocatore/Dash[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Giocatore

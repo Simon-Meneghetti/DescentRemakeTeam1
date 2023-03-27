@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     private bool justOnce;
-    // Start is called before the first frame update
     void OnEnable()
     {
         if(instance == null)
@@ -20,10 +19,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AttivaPlayer()
     {
-        
+        GameObject.FindObjectOfType<PlayerInput>().enabled = true;
     }
 
     public void Raccolta_Input_Pausa(InputAction.CallbackContext ctx)
