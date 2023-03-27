@@ -1,13 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using UnityEngine.UI;
-using TMPro;
-using UnityEditor.SearchService;
-using UnityEngine.SceneManagement;
-using UnityEditor.Timeline.Actions;
 
 public class UIManager : MonoBehaviour
 {

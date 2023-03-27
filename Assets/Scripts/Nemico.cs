@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Threading;
-using DG.Tweening;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Nemico : MonoBehaviour
