@@ -20,7 +20,7 @@ public class Player_Movement : MonoBehaviour
 
     //Se 1 ruota a destra se -1 a sinistra
     private bool want_rotate = false;
-    public bool want_dash = false;
+    private bool want_dash = false;
 
     [Header("Speed Settings")]
     [SerializeField, Range(0, 100)] private float velocita_movimento;
