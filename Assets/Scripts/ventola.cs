@@ -56,6 +56,7 @@ public class ventola : MonoBehaviour
         }
         else if (other.transform.CompareTag("OggettoArpionabile"))
         {
+            Destroy(other.gameObject);
             Destroy(gameObject);
         }
     }

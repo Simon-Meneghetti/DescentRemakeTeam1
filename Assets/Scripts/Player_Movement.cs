@@ -59,12 +59,17 @@ public class Player_Movement : MonoBehaviour
         {
             //Si muove nella direzione stabilita
             rb.AddRelativeForce(mov_direction * velocita_movimento, ForceMode.Force);
+            //L'audio che deve far partire
+            if(!GetComponent<AudioSource>().isPlaying)
+                AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.PlayerMoving);
         }
         //Se non si vuole muovere...
         else
         {
             //Decelera
             rb.AddForce(-rb.velocity * velocita_decelerazione, ForceMode.Acceleration);
+
+            GetComponent<AudioSource>().Pause();
         }
 
         //Massima velocità

@@ -49,6 +49,18 @@ public class Nemico : MonoBehaviour
         player = GameObject.FindObjectOfType<Player_Movement>().gameObject;
         rb = GetComponent<Rigidbody>();
         can_move = true;
+
+        //Audio che riprodurrà il nemico
+        SetAudioNemico();
+    }
+
+    void SetAudioNemico()
+    {
+        //50% di possibilità che il nemico abbia l'audio del rumore 1 o del rumore 2
+        if(Random.value > 0.5f)
+            AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie1);
+        else
+            AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie2);
     }
 
     // Update is called once per frame
