@@ -235,6 +235,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftDoor: {fileID: 4860784795239565348}
   RightDoor: {fileID: 4860784795672226054}
+  apertura: 2
+  timeApertura: 4
 --- !u!1 &4860784796801464120
 GameObject:
   m_ObjectHideFlags: 0
