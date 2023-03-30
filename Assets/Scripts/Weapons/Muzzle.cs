@@ -29,9 +29,10 @@ public class Muzzle : MonoBehaviour
     public int satchelCounter;
     [Range(0, 10)]public float satchelForce;
     private Satchel satchel;
-
+    UIManager UM;
     void Start()
     {
+        UM = FindObjectOfType<UIManager>();
         stamina = maxStamina;
         harpoon = true;
     }
@@ -46,19 +47,25 @@ public class Muzzle : MonoBehaviour
             stamina = 0;
             ricarica = true;
         }
-        if(ricarica == true)
+        if(ricarica == true && stamina<=maxStamina)
         {
-            rechargeTimer += Time.deltaTime;
-            if(rechargeTimer>=coolDown)
-            {
-                stamina = maxStamina;
-                ricarica = false;
-            }
+            //rechargeTimer += Time.deltaTime;
+            //if(rechargeTimer>=coolDown)
+            //{
+            //    stamina = maxStamina;
+            //    ricarica = false;
+            //}if (oxigen < maxO2)
+                stamina += 2f * Time.deltaTime;
         }
         else
         {
             rechargeTimer = 0;
         }
+        if(stamina >= maxStamina)
+            UM.TaserPronto.SetActive(true);
+
+        if(satchelCounter<=0)
+            UM.SatchelPronta.SetActive(false);
     }
 
 
@@ -66,6 +73,7 @@ public class Muzzle : MonoBehaviour
     {
         if (ctx.performed && harpoon && taser == false)
         {
+            UM.ArpionePronto.SetActive(false);
             GameObject proiettile_spawnato = Instantiate(arpioneToSpawn, spawnPosition, Quaternion.identity);
 
             proiettile_spawnato.transform.rotation = gameObject.transform.rotation;
@@ -92,10 +100,13 @@ public class Muzzle : MonoBehaviour
             satchelCounter--;
 
             spawnTimer = 0;
+
+            UM.SatchelPronta.SetActive(false);
         }
         else if (ctx.performed && satchel.attaccata)
         {
             satchel.EsplosioneSatchel();
+            UM.SatchelPronta.SetActive(true);
         }
     }
 
@@ -114,12 +125,11 @@ public class Muzzle : MonoBehaviour
             if (stamina > 0)
             {
                 taser = true;
-                stamina--;
+                stamina=0;
             }
-
+            
         }
         else
             taser = false;
-
     }
 }

@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour
 {
     public float maxShield, maxO2;
     public float shield, oxigen;
+    public float O2Recharge = 2f;
     //public int numOfKeys;
 
     public Transform spawnPos;
@@ -40,7 +41,7 @@ public class PlayerStats : MonoBehaviour
         {
             if (oxigen < maxO2)
             {
-                oxigen += 2f * Time.deltaTime;
+                oxigen += O2Recharge * Time.deltaTime;
             }
         }
     }

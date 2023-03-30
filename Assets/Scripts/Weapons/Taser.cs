@@ -36,11 +36,13 @@ public class Taser : MonoBehaviour
             timer += Time.deltaTime;
 
             if (timer <= 1)
-                UM.TaserPanel.SetActive(true);
-
+            {
+                //UM.TaserPanel.SetActive(true);
+                UM.TaserPronto.SetActive(false);
+            }
             else
             {
-                UM.TaserPanel.SetActive(false);
+                //UM.TaserPanel.SetActive(false);
                 timer = 0;
                 electricShock = false;
                 m.spawnTimer = 0;

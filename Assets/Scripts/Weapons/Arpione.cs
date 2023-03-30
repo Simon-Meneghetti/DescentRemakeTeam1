@@ -23,11 +23,12 @@ public class Arpione : MonoBehaviour
     //Quando attaccata, dopo un po' esplode.
     public float durata_satchel;
 
-
+    UIManager UM;
 
     private void Start()
     {
         m = FindObjectOfType<Muzzle>();
+        UM = FindObjectOfType<UIManager>();
     }
 
     void Update()
@@ -114,6 +115,7 @@ public class Arpione : MonoBehaviour
 
                 m.harpoon = true;
 
+                UM.ArpionePronto.SetActive(true);
                 Destroy(gameObject);
             }
         }

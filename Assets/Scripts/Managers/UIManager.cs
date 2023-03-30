@@ -42,10 +42,15 @@ public class UIManager : MonoBehaviour
 
     //////////////////////////////////////////////
     [Header("In Game UI")]
+    
+
     public GameObject Menu_game_UI;
-    public GameObject TaserPanel;
+    //public GameObject TaserPanel;
+    public GameObject TaserPronto;
+    public GameObject SatchelPronta;
+    public GameObject ArpionePronto;
+
     public Image StaminaBar;
-    public Image StaminaBar1;
     public Image O2Bar;
     public Image ShieldBar;
     public Image velocityBar;
@@ -60,6 +65,7 @@ public class UIManager : MonoBehaviour
 
     public static UIManager instance;
 
+   
     void OnEnable()
     {
         if (instance == null)
@@ -88,12 +94,12 @@ public class UIManager : MonoBehaviour
         if (TipoMenu != TipologiaMenu.Menu_Principale)
         {
             StaminaBar.fillAmount = m.stamina / m.maxStamina;
-            StaminaBar1.fillAmount = m.stamina / m.maxStamina;
             O2Bar.fillAmount = pS.oxigen / pS.maxO2;
             ShieldBar.fillAmount = pS.shield / pS.maxShield;
             Counter.text = m.satchelCounter.ToString("00");
             currentSpeed = target.velocity.magnitude * 3.6f;
             velocityBar.fillAmount = currentSpeed / maxSpeed;
+
         }
 
         if (HelpSelectableMenuFinale != null && HelpSelectableMenuFinale.IsActive())
@@ -143,4 +149,5 @@ public class UIManager : MonoBehaviour
         else
             HelpSelectableSettings.transform.DOMoveY(HelpSelectableNextPosition.y, 0.1f, true).SetUpdate(true);
     }
+    
 }
