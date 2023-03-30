@@ -28,9 +28,13 @@ public class Player_Movement : MonoBehaviour
     [SerializeField, Range(0, 100)] private float velocita_boost;
     [SerializeField, Range(0, 100)] private float velocita_decelerazione;
     [Range(0, 100)] public float velocita_massima;
+    public float dashCounter;
+    public float maxDashCounter = 20;
+    public bool ricarica;
 
     [SerializeField, Range(0, 100)] private float velocita_rotazione;
     [SerializeField, Range(0, 100)] private float camera_sensitivity;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +52,18 @@ public class Player_Movement : MonoBehaviour
     void Update()
     {
         Movimento_Giocatore();
+
+        if (dashCounter <= 0)
+        {
+            dashCounter = 0;
+            ricarica = true;
+        }
+        if (ricarica == true && dashCounter <= maxDashCounter)
+        {
+            dashCounter += 2f * Time.deltaTime;
+        }
     }
+
 
     public void Movimento_Giocatore()
     {
@@ -139,12 +154,14 @@ public class Player_Movement : MonoBehaviour
 
     public void Raccolta_Input_Dash(InputAction.CallbackContext ctx) 
     {
-        if (ctx.performed)
+        if (ctx.performed && dashCounter>=maxDashCounter)
         {
             if(want_dash)
                 want_dash = false;
             else
                 want_dash = true;
+
+            dashCounter = 0;
         }
     }
 }

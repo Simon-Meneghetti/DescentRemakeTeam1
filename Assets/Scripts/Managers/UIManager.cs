@@ -55,12 +55,12 @@ public class UIManager : MonoBehaviour
     public Image ShieldBar;
     public Image velocityBar;
     public Text Counter;
-    public float maxSpeed = 0.0f;
-    public float currentSpeed = 0.0f;
-    public Rigidbody target;
+    //public float maxSpeed = 0.0f;
+    //public float currentSpeed = 0.0f;
+    //public Rigidbody target;
     Muzzle m;
     PlayerStats pS;
-
+    Player_Movement pM;
     ///////////////////////////////////////////////
 
     public static UIManager instance;
@@ -83,6 +83,7 @@ public class UIManager : MonoBehaviour
         {
             m = FindObjectOfType<Muzzle>();
             pS = FindObjectOfType<PlayerStats>();
+            pM = FindObjectOfType<Player_Movement>();
         }
 
         Caricamento.Play("LoadOut");
@@ -97,9 +98,9 @@ public class UIManager : MonoBehaviour
             O2Bar.fillAmount = pS.oxigen / pS.maxO2;
             ShieldBar.fillAmount = pS.shield / pS.maxShield;
             Counter.text = m.satchelCounter.ToString("00");
-            currentSpeed = target.velocity.magnitude * 3.6f;
-            velocityBar.fillAmount = currentSpeed / maxSpeed;
-
+            //currentSpeed = target.velocity.magnitude * 3.6f;
+            //velocityBar.fillAmount = currentSpeed / maxSpeed;
+            velocityBar.fillAmount = pM.dashCounter / pM.maxDashCounter;
         }
 
         if (HelpSelectableMenuFinale != null && HelpSelectableMenuFinale.IsActive())
