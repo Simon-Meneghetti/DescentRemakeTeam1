@@ -18,14 +18,12 @@ public class Taser : MonoBehaviour
     UIManager UM;
     Muzzle m;
     Nemico n;
-    FuseBox fB;
 
     private void Start()
     {
         UM = FindObjectOfType<UIManager>();
         m = FindObjectOfType<Muzzle>();
         n = FindObjectOfType<Nemico>();
-        fB = FindObjectOfType<FuseBox>();
 
         player = FindObjectOfType<Player_Movement>().transform;
     }
@@ -38,11 +36,13 @@ public class Taser : MonoBehaviour
             timer += Time.deltaTime;
 
             if (timer <= 1)
-                UM.TaserPanel.SetActive(true);
-
+            {
+                //UM.TaserPanel.SetActive(true);
+                UM.TaserPronto.SetActive(false);
+            }
             else
             {
-                UM.TaserPanel.SetActive(false);
+                //UM.TaserPanel.SetActive(false);
                 timer = 0;
                 electricShock = false;
                 m.spawnTimer = 0;

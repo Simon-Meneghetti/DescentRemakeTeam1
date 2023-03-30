@@ -9,7 +9,6 @@ public class Muzzle : MonoBehaviour
     [SerializeField] public GameObject arpioneToSpawn;
     [SerializeField] public GameObject satchelToSpawn;
 
-    [SerializeField] public float rate;
     [SerializeField] public float coolDown;
 
     [HideInInspector] public Vector3 spawnPosition;
@@ -28,11 +27,12 @@ public class Muzzle : MonoBehaviour
 
     //Sachel
     public int satchelCounter;
-    [Range(0, 10)]public float satchelForce;
+    [Range(0, 10)] public float satchelForce;
     private Satchel satchel;
-
+    UIManager UM;
     void Start()
     {
+        UM = FindObjectOfType<UIManager>();
         stamina = maxStamina;
         harpoon = true;
     }
@@ -47,19 +47,16 @@ public class Muzzle : MonoBehaviour
             stamina = 0;
             ricarica = true;
         }
-        if(ricarica == true)
+        if (ricarica == true && stamina <= maxStamina)
         {
-            rechargeTimer += Time.deltaTime;
-            if(rechargeTimer>=coolDown)
-            {
-                stamina = maxStamina;
-                ricarica = false;
-            }
+            stamina += 2f * Time.deltaTime;
         }
-        else
-        {
-            rechargeTimer = 0;
-        }
+
+        if (stamina >= maxStamina)
+            UM.TaserPronto.SetActive(true);
+
+        if (satchelCounter <= 0)
+            UM.SatchelPronta.SetActive(false);
     }
 
 
@@ -67,13 +64,12 @@ public class Muzzle : MonoBehaviour
     {
         if (ctx.performed && harpoon && taser == false)
         {
+            UM.ArpionePronto.SetActive(false);
             GameObject proiettile_spawnato = Instantiate(arpioneToSpawn, spawnPosition, Quaternion.identity);
 
             proiettile_spawnato.transform.rotation = gameObject.transform.rotation;
 
             spawnTimer = 0;
-
-            proiettile_spawnato.GetComponent<BulletType>().arpione = true;
 
             harpoon = false;
         }
@@ -81,7 +77,8 @@ public class Muzzle : MonoBehaviour
 
     public void Raccolta_Input_SparaSatchel(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && satchel == null && satchelCounter>0)
+        if (ctx.performed && satchel == null && satchelCounter > 0
+            || ctx.performed && satchel.boom && satchelCounter > 0)
         {
             //istanzia la carica satchel e sistema la rotazione
             satchel = Instantiate(satchelToSpawn, spawnPosition, Quaternion.identity).GetComponent<Satchel>();
@@ -93,10 +90,13 @@ public class Muzzle : MonoBehaviour
             satchelCounter--;
 
             spawnTimer = 0;
+
+            UM.SatchelPronta.SetActive(false);
         }
         else if (ctx.performed && satchel.attaccata)
         {
             satchel.EsplosioneSatchel();
+            UM.SatchelPronta.SetActive(true);
         }
     }
 
@@ -112,15 +112,14 @@ public class Muzzle : MonoBehaviour
     {
         if (ctx.performed)
         {
-            if (stamina > 0)
+            if (stamina >= maxStamina)
             {
                 taser = true;
-                stamina--;
+                stamina = 0;
             }
 
         }
         else
             taser = false;
-
     }
 }

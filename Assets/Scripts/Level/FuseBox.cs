@@ -4,14 +4,29 @@ using UnityEngine;
 
 public class FuseBox : MonoBehaviour
 {
-    [Tooltip("Door prefab")] public GameObject[] doorToOpen;
     //tutti gli script OpenDoor delle porte inserite in questo array, verranno attivati, di conseguenza, le porte in questione si apriranno
-    
-    public void Update()
+    [Tooltip("Door prefab")] public GameObject[] doorToOpen;
+    [Tooltip("Lights prefab")] public GameObject[] lightsToTurnOn;
+    [Tooltip("Enemies prefab")] public GameObject[] enemiesToSpawn;
+
+    public void OnEnable()
     {
         foreach (GameObject door in doorToOpen)
         {
-            door.GetComponentInChildren<OpenDoor>().enabled = true;
+            door.gameObject.SetActive(true);
+            OpenDoor openDoor = door.GetComponentInChildren<OpenDoor>();
+            if (openDoor != null)
+            {
+                openDoor.enabled = true;
+            }
+        }
+        foreach (GameObject light in lightsToTurnOn)
+        {
+            light.gameObject.SetActive(true);
+        }
+        foreach (GameObject enemy in enemiesToSpawn)
+        {
+            enemy.gameObject.SetActive(true);
         }
     }
 }

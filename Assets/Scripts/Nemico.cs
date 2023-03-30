@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Threading;
-using DG.Tweening;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Nemico : MonoBehaviour
@@ -36,14 +32,18 @@ public class Nemico : MonoBehaviour
     public LayerMask lineOfSight;
 
     [Header("Stats")]
+    public float vita;
     public float speed;
     public float damage;
     public float knockback;
 
-
+    public enum TipoAudio { Audio1, Audio2, Audio3 };
+    [Header("Audio")]
+    public TipoAudio tipoAudio;
     //Componenti nemico che ci servono
     private Rigidbody rb;
-    private bool can_move; 
+    [HideInInspector] public bool can_move; 
+
 
 
     // Start is called before the first frame update
@@ -52,6 +52,25 @@ public class Nemico : MonoBehaviour
         player = GameObject.FindObjectOfType<Player_Movement>().gameObject;
         rb = GetComponent<Rigidbody>();
         can_move = true;
+
+        //Audio che riprodurrà il nemico
+        SetAudioNemico();
+    }
+
+    void SetAudioNemico()
+    {
+        switch (tipoAudio)
+        {
+            case TipoAudio.Audio1:
+                AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie1);
+                break;
+            case TipoAudio.Audio2:
+                AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie2);
+                break;
+            case TipoAudio.Audio3:
+                AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie3);
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -59,6 +78,11 @@ public class Nemico : MonoBehaviour
     {
         if(can_move)
             EnemyMovement(Detection());
+
+        if(vita <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void EnemyMovement(bool player_spotted)

@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
     public float maxShield, maxO2;
     public float shield, oxigen;
-    public int numOfKeys;
+    public float O2Recharge = 2f;
 
-    public Transform spawnPos;
+    [SerializeField] private AudioSource sourceEffettoOssigeno;
+    //public int numOfKeys;
 
     Muzzle m;
 
@@ -39,7 +41,10 @@ public class PlayerStats : MonoBehaviour
         {
             if (oxigen < maxO2)
             {
-                oxigen += 2f * Time.deltaTime;
+                oxigen += O2Recharge * Time.deltaTime;
+
+                if (!sourceEffettoOssigeno.isPlaying) 
+                    AudioManager.instance.PlayAudio(sourceEffettoOssigeno, AudioManager.instance.Ossigeno);
             }
         }
     }
@@ -51,11 +56,12 @@ public class PlayerStats : MonoBehaviour
             Destroy(other.gameObject);
             m.satchelCounter++;
         }
-        if(other.CompareTag("Key"))
-        {
-            numOfKeys++;
-            Destroy(other.gameObject);
-        }
+        
+        //if(other.CompareTag("Key"))
+        //{
+        //    numOfKeys++;
+        //    Destroy(other.gameObject);
+        //}
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -73,8 +79,6 @@ public class PlayerStats : MonoBehaviour
     }
     void Death()
     {
-        gameObject.transform.position = spawnPos.position;
-        shield = maxShield;
-        oxigen = maxO2;
+        UIManager.instance.GameLost();
     }
 }

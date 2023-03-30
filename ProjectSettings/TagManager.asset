@@ -8,8 +8,7 @@ TagManager:
   - O2Recharge
   - CollectibleSatchel
   - Enemy
-  - SingleDoor
-  - AccessDoor
+  - OggettoArpionabile
   layers:
   - Default
   - TransparentFX
@@ -20,7 +19,7 @@ TagManager:
   - Player
   - Nemico
   - Enviroment
-  - 
+  - CockpitOnly
   - 
   - 
   - 

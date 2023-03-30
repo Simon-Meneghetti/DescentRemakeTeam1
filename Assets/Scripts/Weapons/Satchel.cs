@@ -8,6 +8,7 @@ public class Satchel : MonoBehaviour
 
     //Se la satchel è attaccata
     [HideInInspector] public bool attaccata;
+    [HideInInspector] public bool boom;
 
     //ROBA PER LA SATCHEL
     public float raggio_satchel;
@@ -38,6 +39,8 @@ public class Satchel : MonoBehaviour
             else if (durata_satchel > 0)
                 durata_satchel -= Time.deltaTime;
         }
+        if (boom && !GetComponent<AudioSource>().isPlaying)
+            Destroy(gameObject);
     }
 
     //Per visualizzare la grandezza dell'esplosione che avrà la satchel.
@@ -58,6 +61,10 @@ public class Satchel : MonoBehaviour
     //Se clicca il pulsante e la satchel è attaccata.
     public void EsplosioneSatchel()
     {
+        boom = true;
+
+        AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Esplosione);
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, raggio_satchel, contatto);
 
         foreach (Collider collider in colliders)
@@ -66,16 +73,13 @@ public class Satchel : MonoBehaviour
             {
                 collider.GetComponent<PlayerStats>().shield -= quantita_danno;
             }
-            /*Se colpisce il nemico
-            else if(collider.GetComponent<Nemico>() != null
+            else if(collider.GetComponent<Nemico>() != null)
             {
-                collider.GetComponent<PlayerStats>().vitanemico -= quantita_danno;
+                collider.GetComponent<Nemico>().vita -= quantita_danno;
             }
-            */
         }
 
-        //Boom!
-        Destroy(gameObject);
+        GetComponentInChildren<MeshRenderer>().forceRenderingOff = true;
     }
 
     private void OnCollisionEnter(Collision other)
