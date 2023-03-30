@@ -37,6 +37,12 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 FindObjectOfType<UIManager>().Menu_game_UI.gameObject.SetActive(false);
                 FindObjectOfType<UIManager>().Menu_pausa.gameObject.SetActive(true);
+
+                foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
+                {
+                    if(audio.isPlaying)
+                        audio.Pause();
+                }
             }
         }
     }
@@ -49,5 +55,11 @@ public class GameManager : MonoBehaviour
 
         FindObjectOfType<UIManager>().Menu_game_UI.gameObject.SetActive(true);
         FindObjectOfType<UIManager>().Menu_pausa.gameObject.SetActive(false);
+
+        foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
+        {
+            if(!audio.isPlaying)
+                audio.Play();
+        }
     }    
 }

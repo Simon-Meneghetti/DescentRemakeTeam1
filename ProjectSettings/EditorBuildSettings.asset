@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu Principale.unity
     guid: 8db826b6f61da9b409f5be3b4b69cd73
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/SimonScene/SimonScene.unity
+    guid: 826d6c8d45aa8c84baddcf246d892314
   m_configObjects: {}

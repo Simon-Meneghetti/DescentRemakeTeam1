@@ -71,15 +71,14 @@ public class Muzzle : MonoBehaviour
 
             spawnTimer = 0;
 
-            proiettile_spawnato.GetComponent<Arpione>().arpione = true;
-
             harpoon = false;
         }
     }
 
     public void Raccolta_Input_SparaSatchel(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && satchel == null && satchelCounter > 0)
+        if (ctx.performed && satchel == null && satchelCounter > 0
+            || ctx.performed && satchel.boom && satchelCounter > 0)
         {
             //istanzia la carica satchel e sistema la rotazione
             satchel = Instantiate(satchelToSpawn, spawnPosition, Quaternion.identity).GetComponent<Satchel>();

@@ -9,9 +9,9 @@ public class PlayerStats : MonoBehaviour
     public float maxShield, maxO2;
     public float shield, oxigen;
     public float O2Recharge = 2f;
-    //public int numOfKeys;
 
-    public Transform spawnPos;
+    [SerializeField] private AudioSource sourceEffettoOssigeno;
+    //public int numOfKeys;
 
     Muzzle m;
 
@@ -42,6 +42,9 @@ public class PlayerStats : MonoBehaviour
             if (oxigen < maxO2)
             {
                 oxigen += O2Recharge * Time.deltaTime;
+
+                if (!sourceEffettoOssigeno.isPlaying) 
+                    AudioManager.instance.PlayAudio(sourceEffettoOssigeno, AudioManager.instance.Ossigeno);
             }
         }
     }

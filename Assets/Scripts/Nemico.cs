@@ -37,10 +37,13 @@ public class Nemico : MonoBehaviour
     public float damage;
     public float knockback;
 
-
+    public enum TipoAudio { Audio1, Audio2, Audio3 };
+    [Header("Audio")]
+    public TipoAudio tipoAudio;
     //Componenti nemico che ci servono
     private Rigidbody rb;
     [HideInInspector] public bool can_move; 
+
 
 
     // Start is called before the first frame update
@@ -56,11 +59,18 @@ public class Nemico : MonoBehaviour
 
     void SetAudioNemico()
     {
-        //50% di possibilità che il nemico abbia l'audio del rumore 1 o del rumore 2
-        if(Random.value > 0.5f)
-            AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie1);
-        else
-            AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie2);
+        switch (tipoAudio)
+        {
+            case TipoAudio.Audio1:
+                AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie1);
+                break;
+            case TipoAudio.Audio2:
+                AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie2);
+                break;
+            case TipoAudio.Audio3:
+                AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Enemie3);
+                break;
+        }
     }
 
     // Update is called once per frame

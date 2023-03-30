@@ -8,7 +8,8 @@ public class FuseBox : MonoBehaviour
     [Tooltip("Door prefab")] public GameObject[] doorToOpen;
     [Tooltip("Lights prefab")] public GameObject[] lightsToTurnOn;
     [Tooltip("Enemies prefab")] public GameObject[] enemiesToSpawn;
-    public void Update()
+
+    public void OnEnable()
     {
         foreach (GameObject door in doorToOpen)
         {

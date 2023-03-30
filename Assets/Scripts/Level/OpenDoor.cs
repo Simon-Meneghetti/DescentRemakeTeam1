@@ -15,5 +15,13 @@ public class OpenDoor : MonoBehaviour
     {
         LeftDoor.transform.DOMove(LeftDoor.transform.position -transform.right * apertura, timeApertura);
         RightDoor.transform.DOMove(RightDoor.transform.position + transform.right * apertura, timeApertura);
+
+        AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Porta);
+    }
+
+    void Update()
+    {
+        if(!GetComponent<AudioSource>().isPlaying && Time.timeScale != 0)    
+            GetComponent<AudioSource>().clip= null;
     }
 }
