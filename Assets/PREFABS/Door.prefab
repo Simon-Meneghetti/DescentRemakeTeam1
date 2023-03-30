@@ -206,7 +206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4860784796690544306
 Transform:
   m_ObjectHideFlags: 0
@@ -228,14 +228,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4860784796690544307}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 385ffb4e953d8e14f82c54534be0a605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LeftDoor: {fileID: 4860784795239565348}
   RightDoor: {fileID: 4860784795672226054}
-  open: 0
 --- !u!1 &4860784796801464120
 GameObject:
   m_ObjectHideFlags: 0

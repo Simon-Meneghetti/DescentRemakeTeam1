@@ -29,6 +29,7 @@ public class BulletType : MonoBehaviour
     {
         m = FindObjectOfType<Muzzle>();
     }
+
     void Update()
     {
         //Arpione

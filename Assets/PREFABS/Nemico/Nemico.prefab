@@ -127,9 +127,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
-  colpisci: 0
+  electricShock: 0
+  FuseBoxScript: {fileID: 0}
   player: {fileID: 0}
   radius: 8
+  type: 0
 --- !u!114 &1803051688821783166
 MonoBehaviour:
   m_ObjectHideFlags: 0

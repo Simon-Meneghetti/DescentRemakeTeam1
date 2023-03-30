@@ -26,6 +26,8 @@ public class Taser : MonoBehaviour
         m = FindObjectOfType<Muzzle>();
         n = FindObjectOfType<Nemico>();
         fB = FindObjectOfType<FuseBox>();
+
+        player = FindObjectOfType<Player_Movement>().transform;
     }
     void Update()
     {

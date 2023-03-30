@@ -59,8 +59,6 @@ public class Nemico : MonoBehaviour
     {
         if(can_move)
             EnemyMovement(Detection());
-
-        Debug.Log(Detection());
     }
 
     void EnemyMovement(bool player_spotted)
@@ -79,9 +77,9 @@ public class Nemico : MonoBehaviour
 
             /* Varie opzioni di movimento 
              * Se uso la posizione trapassa i muri
-                //transform.position = Vector3.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
+                //transform.position = Vector3.Lerp(transform.position, player.transform.position, shootForce * Time.deltaTime);
              * Se uso addforce non riesce a raggiungere il player se si muove al suo lato, o almeno lo raggiunge tramite una spirale
-                //rb.AddForce((player.transform.position - transform.position).normalized * speed * Time.deltaTime);
+                //rb.AddForce((player.transform.position - transform.position).normalized * shootForce * Time.deltaTime);
              * Velocity se ne frega di qualsiasi altra forza applicata e lo muove verso il player.
              */
 
@@ -94,7 +92,7 @@ public class Nemico : MonoBehaviour
 
             //Torna a fissare il prossimo punto in cui dovrà andare
             //Si muove dove dovrà andare
-            //rb.AddForce((player.transform.position - transform.position).normalized * speed * Time.deltaTime);
+            //rb.AddForce((player.transform.position - transform.position).normalized * shootForce * Time.deltaTime);
             rb.velocity = Vector3.zero;
 
             index = indexApp;

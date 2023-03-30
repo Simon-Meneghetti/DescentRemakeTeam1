@@ -190,5 +190,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1029ac9fcf2962d41bc49f694c9c4a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorToOpen:
-  - {fileID: 0}
+  doorToOpen: []
