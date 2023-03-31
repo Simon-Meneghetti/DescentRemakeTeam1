@@ -18,10 +18,4 @@ public class OpenDoor : MonoBehaviour
 
         AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.Porta);
     }
-
-    void Update()
-    {
-        if(!GetComponent<AudioSource>().isPlaying && Time.timeScale != 0)    
-            GetComponent<AudioSource>().clip= null;
-    }
 }

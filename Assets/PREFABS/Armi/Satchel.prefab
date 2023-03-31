@@ -46,8 +46,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.25106263, z: 1}
+  m_Center: {x: 0, y: 0.115166426, z: 0}
 --- !u!54 &6305978776764416481
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   durata_satchel: 3
   contatto:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 448
 --- !u!82 &-9095806318055062225
 AudioSource:
   m_ObjectHideFlags: 0
@@ -206,19 +206,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5140794764850106012, guid: 062ce0016ac76094d9e3ded5cbdf92ae, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70710784
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5140794764850106012, guid: 062ce0016ac76094d9e3ded5cbdf92ae, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.70710576
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5140794764850106012, guid: 062ce0016ac76094d9e3ded5cbdf92ae, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5140794764850106012, guid: 062ce0016ac76094d9e3ded5cbdf92ae, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5140794764850106012, guid: 062ce0016ac76094d9e3ded5cbdf92ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

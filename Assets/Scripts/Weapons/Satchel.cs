@@ -79,7 +79,7 @@ public class Satchel : MonoBehaviour
             }
         }
 
-        GetComponentInChildren<MeshRenderer>().forceRenderingOff = true;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision other)
@@ -98,18 +98,12 @@ public class Satchel : MonoBehaviour
             transform.SetParent(other.transform);
             //Resettiamo la scale
             transform.localScale = new Vector3(sizeAppoggio.x / transform.parent.localScale.x, sizeAppoggio.y / transform.parent.localScale.y, sizeAppoggio.z / transform.parent.localScale.z);
-            //Se possibile sarebbe meglio trovare una rotazione a seconda del parent a cui si attacca
-            transform.localRotation = Quaternion.identity;
 
 
             //Non verrà più modificata la sua rotazione e/o posizione
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.FreezeAll;
             rb.velocity = Vector3.zero;
-        }
-        else if (other.transform.CompareTag("Player") && attaccata)
-        {
-            Destroy(gameObject);
         }
     }
 
