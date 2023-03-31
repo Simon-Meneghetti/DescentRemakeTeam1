@@ -144,7 +144,7 @@ public class UIManager : MonoBehaviour
         }
 
         //Se è attivo il selectable delle impostazioni allora significa che è nelle impostazioni e muoviamo quello
-        if (!HelpSelectableSettings.IsActive())
+        if (HelpSelectableSettings == null || !HelpSelectableSettings.IsActive())
             HelpSelectable.transform.DOMove(HelpSelectableNextPosition, 0.1f, true).SetUpdate(true);
         //Sennò muoviamo quello del menu generale.
         else
