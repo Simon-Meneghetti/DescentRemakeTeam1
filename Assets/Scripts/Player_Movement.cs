@@ -77,6 +77,7 @@ public class Player_Movement : MonoBehaviour
             //L'audio che deve far partire
             if(!GetComponent<AudioSource>().isPlaying)
                 AudioManager.instance.PlayAudio(GetComponent<AudioSource>(), AudioManager.instance.PlayerMoving);
+
         }
         //Se non si vuole muovere...
         else
